@@ -12,6 +12,13 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path:'/blocks/:seq',
+    name:'lastblock',
+    component:Blocks
+  },
+
+
+  {
     path: '/',
     name: 'Home',
     component: Home
