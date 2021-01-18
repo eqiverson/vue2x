@@ -17,7 +17,7 @@
           <div class="data">{{ seq }}</div>
           <div class="title">区块</div>
         </a-col>
-        <a-col :span="4" class="infobox-item" @click="linktoblocks">
+        <a-col :span="4" class="infobox-item" >
           <div class="data">{{ accountCount }}</div>
           <div class="title">总账号数</div>
         </a-col>
