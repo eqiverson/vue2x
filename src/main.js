@@ -6,9 +6,9 @@ import 'ant-design-vue/dist/antd.css';
 import Antd from 'ant-design-vue';
 import {request} from './network/request';
 import axios from 'axios';
-import underscore from "underscore";
 
-Vue.prototype._=underscore;
+
+
 Vue.use(Antd);
 
 Vue.config.productionTip = false

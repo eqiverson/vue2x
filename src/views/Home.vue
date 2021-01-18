@@ -1,17 +1,24 @@
 <template>
   <div class="home">
     home
-    <div id="main" style="width: 600px; height: 400px"></div>
+    <div id="bbb" style="width: 600px; height: 400px"></div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 
-import { getLedger, getHomeGoods } from "@/network/home";
+import { getLedger } from "@/network/home";
 
-const echarts = require("echarts");
 
+// let echarts = require("echarts/lib/echarts");
+// // 按需引入需要的组件模块
+// require("echarts/lib/chart/line");
+// require("echarts/lib/component/title");
+// require("echarts/lib/component/legend");
+// require("echarts/lib/component/tooltip");
+
+const echarts = require('echarts');
 
 
 export default {
@@ -45,7 +52,6 @@ export default {
       applicationCount: [],
       nodeCount: [],
 
-      myChart
 
 
     };
@@ -53,7 +59,7 @@ export default {
   created() {
     this.infodata();
 
-    myChart.setOption(option);
+
   },
 
 
@@ -67,10 +73,20 @@ export default {
         this.nodeCount = res.nodeCount;
       });
     },
+
+    getecharts(){
+
+      let chart = echarts.init(document.getElementById("bbb"));
+      chart.setOption(this.option);
+    }
   },
 
+mounted() {
+  this.getecharts();
+},
 
-computed:{
+
+  computed:{
       // myChart = echarts.init(document.getElementById("main"))
 }
 }
