@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    home
-    <div id="bbb" style="width: 600px; height: 400px"></div>
+    <div id="accountcount" style="width: 600px; height: 400px"></div>
+    <div id="transtcount" style="width: 600px; height: 400px"></div>
   </div>
 </template>
 
@@ -27,23 +27,46 @@ export default {
   name: "Home",
   data() {
     return {
-      option: {
+      option1: {
         title: {
-          text: "应用交易量",
+          text: "地址增长量",
         },
         tooltip: {},
         legend: {
-          data: ["销量"],
+          data: ["增长量"],
         },
         xAxis: {
           data: [],
         },
-        yAxis: {},
+        yAxis: {type: 'value'},
         series: [
           {
-            name: "销量",
-            type: "bar",
+            name: "增长量",
+            type: "line",
             data: [],
+            areaStyle: {}
+          },
+        ],
+      },
+
+      option2: {
+        title: {
+          text: "最近7天内交易量",
+        },
+        tooltip: {},
+        legend: {
+          data: ["交易量"],
+        },
+        xAxis: {
+          data: [],
+        },
+        yAxis: {type: 'value'},
+        series: [
+          {
+            name: "交易量",
+            type: "line",
+            data: [],
+            areaStyle: {}
           },
         ],
       },
@@ -70,21 +93,33 @@ export default {
 
   methods: {
     get5days(){
-      let myDate = new Date();
-      let xday  = myDate ;
-      let yday  = myDate ;
-      this.option.xAxis.data.push(moment(xday).format("M-DD"));
-      this.option.series.data.push(moment(yday).format("YYYY-MM-DD HH:MM:SS"));
-      
-      for(let i=0;i<7;i++){
-      myDate = moment(myDate).subtract(1, "days");
-      xday = myDate.format("M-DD");
-      yday = myDate.format("YYYY-MM-DD HH:MM:SS");
-      this.option.xAxis.data.push(xday);
-      this.option.series.data.push(yday);
-      console.log(this.option.xAxis.data[i]);
-      console.log(this.option.series.data[i]);
+      let myDate = new Date(this.closeTime);
+      let xday  = [] ;
+      let yday  = [] ;
+      let accountdata = [] ;
+      let transdata = [] ;
+
+
+      for(let i=0  ;i<7;i++){
+
+        xday.push(moment(myDate).format("M-DD"));
+        yday.push(moment(myDate).format("YYYY-MM-DD HH:MM:SS"));
+        getLedger({closeTimeEnd:yday}).then((res) => {
+          accountdata.push(res.result[0].accountCount)
+          transdata.push(res.result[0].txCount)
+        })
+
+        myDate = moment(myDate).subtract(1, "days");
+
+      console.log(xday[i]);
+
       }
+      this.option1.xAxis.data = xday;
+      this.option2.xAxis.data = xday;
+      // this.option1.xAxis.data = ['1-19','1-18','1-17','1-16','1-15','1-14','1-13'];
+      this.option1.series[0].data = accountdata;
+      // this.option1.series[0].data = [1,2,3,4,5,6,7];
+      this.option2.series[0].data = transdata;
 
     },
     
@@ -100,15 +135,26 @@ export default {
       });
     },
 
-    getecharts(){
+    getecharts1(){
 
-      let chart = echarts.init(document.getElementById("bbb"));
-      chart.setOption(this.option);
+      let chart = echarts.init(document.getElementById("accountcount"));
+      chart.setOption(this.option1);
+    },
+
+    getecharts2(){
+
+      let chart = echarts.init(document.getElementById("transtcount"));
+      chart.setOption(this.option2);
     }
+
+
   },
 
+
+
 mounted() {
-  this.getecharts();
+  this.getecharts1();
+  this.getecharts2();
 },
 
 
@@ -117,3 +163,11 @@ mounted() {
 }
 }
 </script>
+
+<style lang='less' scoped>
+.home{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+</style>
