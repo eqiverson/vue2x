@@ -3,7 +3,7 @@ import axios from 'axios'
 export function request(config) {
   // 1.创建axios的实例
   const instance = axios.create({
-    baseURL:'http://192.168.17.200:57074',
+    baseURL:'http://192.168.13.120:57074',
     method:'post',
     headers:{
       contentType:'application/json',
