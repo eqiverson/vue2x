@@ -1,16 +1,23 @@
 <!--  -->
 <template>
-  <div></div>
+  <div>
+    <Datatable></Datatable>
+  </div>
 </template>
 
 <script>
+import Datatable from "@/components/common/Datatable.vue"
+
+
+
 export default {
+  name:"Transtable",
   data () {
     return {
     };
   },
 
-  components: {},
+  components: {Datatable},
 
   computed: {},
 
@@ -19,5 +26,7 @@ export default {
 }
 
 </script>
-<style lang='scss' scoped>
+<style lang='less' scoped>
+
+
 </style>

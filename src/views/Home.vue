@@ -1,16 +1,20 @@
 <template>
-  <div class="home">
-    <div id="accountcount" style="width: 600px; height: 400px"></div>
-    <div id="transtcount" style="width: 600px; height: 400px"></div>
+  <div class="container">
+    <div class="home">
+      <div id="accountcount" style="width: 600px; height: 400px"></div>
+      <div id="transtcount" style="width: 600px; height: 400px"></div>
+    </div>
+    <div>
+      <Transtable></Transtable>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 
-import { getLedger } from "@/network/home";
-
-
+import { getLedger,getTransactionStatistics } from "@/network/home";
+import Transtable from "@/components/Transtable.vue";
 
 // let echarts = require("echarts/lib/echarts");
 // // 按需引入需要的组件模块
@@ -19,12 +23,19 @@ import { getLedger } from "@/network/home";
 // require("echarts/lib/component/legend");
 // require("echarts/lib/component/tooltip");
 
-const echarts = require('echarts');
-const moment = require('moment');
+const echarts = require("echarts");
+const moment = require("moment");
 
+// const accountdata = [];
+// const transdata = [];
 
 export default {
   name: "Home",
+
+  components: {
+    Transtable,
+  },
+
   data() {
     return {
       option1: {
@@ -38,13 +49,13 @@ export default {
         xAxis: {
           data: [],
         },
-        yAxis: {type: 'value'},
+        yAxis: { type: "value" },
         series: [
           {
             name: "增长量",
             type: "line",
             data: [],
-            areaStyle: {}
+            areaStyle: {},
           },
         ],
       },
@@ -60,13 +71,13 @@ export default {
         xAxis: {
           data: [],
         },
-        yAxis: {type: 'value'},
+        yAxis: { type: "value" },
         series: [
           {
             name: "交易量",
             type: "line",
             data: [],
-            areaStyle: {}
+            areaStyle: {},
           },
         ],
       },
@@ -77,52 +88,82 @@ export default {
       applicationCount: [],
       nodeCount: [],
 
-      last5days:[],
+      last5days: [],
 
-      closeTime:[]
-
-
+      closeTime: [],
     };
   },
   created() {
-    this.infodata();
-    this.get5days();
+        this.infodata();
+
 
   },
 
-
   methods: {
-    get5days(){
+    get5days() {
+
       let myDate = new Date(this.closeTime);
-      let xday  = [] ;
-      let yday  = [] ;
-      let accountdata = [] ;
-      let transdata = [] ;
+      let xday = [];
+      let yday = [];
 
 
-      for(let i=0  ;i<7;i++){
-
+      for (let i = 0; i < 7; i++) {
         xday.push(moment(myDate).format("M-DD"));
         yday.push(moment(myDate).format("YYYY-MM-DD HH:MM:SS"));
-        getLedger({closeTimeEnd:yday}).then((res) => {
-          accountdata.push(res.result[0].accountCount)
-          transdata.push(res.result[0].txCount)
-        })
-
         myDate = moment(myDate).subtract(1, "days");
+        };
 
-      console.log(xday[i]);
+      console.log(xday);
+      xday.reverse();
 
-      }
+      for (let i = 0; i < 7; i++) {
+        getLedger({ closeTimeEnd: yday[i] }).then((res) => {
+
+        this.option1.series[0].data.push(res.result[0].accountCount);
+
+
+
+      });
+      };
+
+       getTransactionStatistics().then((res) => {
+        //   for(let i=0 ;  i< res.result.length ; i++){
+        // this.option2.series[0].data.push(res.result[i].txCount);
+        // this.option2.xAxis.data.push(res.result[i].date);
+        // console.log(this.option2.xAxis.data[i]);
+
+        //   }
+        let arr = []
+        console.log(res.result)
+        res.result.forEach(item=>{
+          arr.push(item.date)
+        })
+        console.log(arr);
+        this.option2.xAxis.data = arr;
+        console.log(this.option2.xAxis.data);
+      });
+
+      console.log(this.option1.series[0].data);
+      this.option2.xAxis.data;
+      console.log(this.option2.xAxis.data);
+      
+
       this.option1.xAxis.data = xday;
-      this.option2.xAxis.data = xday;
+      // this.option2.xAxis.data = xday;
+
       // this.option1.xAxis.data = ['1-19','1-18','1-17','1-16','1-15','1-14','1-13'];
-      this.option1.series[0].data = accountdata;
+      // this.option1.series[0].data = Array.from(accountdata);
       // this.option1.series[0].data = [1,2,3,4,5,6,7];
-      this.option2.series[0].data = transdata;
+      // console.log(this.option1.series[0].data);
+      // // this.option2.series[0].data = transdata;
+
+      // console.log(this.option1.series[0].data);
+
+
+
 
     },
-    
+
     infodata() {
       getLedger().then((res) => {
         this.seq = res.result[0].seq;
@@ -131,43 +172,45 @@ export default {
         this.applicationCount = res.applicationCount;
         this.nodeCount = res.nodeCount;
         this.closeTime = res.result[0].closeTime;
+        this.get5days();
+
+        this.getecharts1(this.option1);
+
+        this.getecharts2(this.option2);
+
 
       });
+
+
+
     },
 
-    getecharts1(){
-
+    getecharts1(option) {
       let chart = echarts.init(document.getElementById("accountcount"));
-      chart.setOption(this.option1);
+      chart.setOption(option);
     },
 
-    getecharts2(){
-
+    getecharts2(option) {
       let chart = echarts.init(document.getElementById("transtcount"));
-      chart.setOption(this.option2);
-    }
+      chart.setOption(option);
+    },
+  },
 
+  mounted() {
 
   },
 
-
-
-mounted() {
-  this.getecharts1();
-  this.getecharts2();
-},
-
-
-  computed:{
-
-}
-}
+  computed: {},
+};
 </script>
 
 <style lang='less' scoped>
-.home{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
+
+  
+  .home {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
 </style>

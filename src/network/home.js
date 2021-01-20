@@ -17,6 +17,13 @@ export function getLedger(params) {
   })
 }
 
+// export function getLedger1(params) {
+//   return request({
+//     data:{},
+//     url: '/v1/getLedger',
+//     params
+//   })
+// }
 
 
 //###### 5.2 查询交易执行记录
@@ -54,6 +61,15 @@ export function getNode(params) {
   return request({
     data:{},
     url: '/v1/getNode',
+    params
+
+  })
+}
+
+export function getTransactionStatistics(params) {
+  return request({
+    data:{},
+    url: '/v1/getTransactionStatistics',
     params
 
   })

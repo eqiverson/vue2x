@@ -37,11 +37,11 @@ new Vue({
 
 console.log(111)
 
-// axios({
-//   url:'http://192.168.17.200:57074/v1/getLedger',
-//   contentType:'application/json',
-//   method:'post',
-//   data:{}
-// }).then(res => {
-//   console.log(res);
-// })
+axios({
+  url:'http://192.168.13.120:7072/v1/getLedger',
+  contentType:'application/json',
+  method:'post',
+  data:{}
+}).then(res => {
+  console.log(res);
+})

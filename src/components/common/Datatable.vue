@@ -1,39 +1,69 @@
 <template>
-  <a-table
-      :columns="columns"
-      :row-key="record => record.login.uuid"
-      :data-source="data"
-      :pagination="pagination"
-      :loading="loading"
-      @change="handleTableChange"
-  >
-    <template slot="name" slot-scope="name"> {{ name.first }} {{ name.last }} </template>
+  <a-table :columns="columns" :data-source="data">
+    <a slot="name" slot-scope="text">{{ text }}</a>
   </a-table>
 </template>
-
 <script>
-
-
 const columns = [
   {
     title: 'Name',
     dataIndex: 'name',
-    sorter: true,
-    width: '20%',
+    key: 'name',
     scopedSlots: { customRender: 'name' },
   },
   {
-    title: 'Gender',
-    dataIndex: 'gender',
-    filters: [
-      { text: 'Male', value: 'male' },
-      { text: 'Female', value: 'female' },
-    ],
-    width: '20%',
+    title: 'Age',
+    dataIndex: 'age',
+    key: 'age',
+    width: 80,
   },
   {
-    title: 'Email',
-    dataIndex: 'email',
+    title: 'Address',
+    dataIndex: 'address',
+    key: 'address 1',
+    ellipsis: true,
+  },
+  {
+    title: 'Long Column Long Column Long Column',
+    dataIndex: 'address',
+    key: 'address 2',
+    ellipsis: true,
+  },
+  {
+    title: 'Long Column Long Column',
+    dataIndex: 'address',
+    key: 'address 3',
+    ellipsis: true,
+  },
+  {
+    title: 'Long Column',
+    dataIndex: 'address',
+    key: 'address 4',
+    ellipsis: true,
+  },
+];
+
+const data = [
+  {
+    key: '1',
+    name: 'John Brown',
+    age: 32,
+    address: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
+    tags: ['nice', 'developer'],
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    age: 42,
+    address: 'London No. 2 Lake Park, London No. 2 Lake Park',
+    tags: ['loser'],
+  },
+  {
+    key: '3',
+    name: 'Joe Black',
+    age: 32,
+    address: 'Sidney No. 1 Lake Park, Sidney No. 1 Lake Park',
+    tags: ['cool', 'teacher'],
   },
 ];
 
@@ -41,50 +71,19 @@ export default {
   name:'Datatable',
   data() {
     return {
-      data: [],
-      pagination: {},
-      loading: false,
+      data,
       columns,
     };
   },
-  mounted() {
-    this.fetch();
-  },
-  methods: {
-    handleTableChange(pagination, filters, sorter) {
-      console.log(pagination);
-      const pager = { ...this.pagination };
-      pager.current = pagination.current;
-      this.pagination = pager;
-      this.fetch({
-        results: pagination.pageSize,
-        page: pagination.current,
-        sortField: sorter.field,
-        sortOrder: sorter.order,
-        ...filters,
-      });
-    },
-    fetch(params = {}) {
-      console.log('params:', params);
-      this.loading = true;
-      reqwest({
-        url: 'https://randomuser.me/api',
-        method: 'get',
-        data: {
-          results: 10,
-          ...params,
-        },
-        type: 'json',
-      }).then(data => {
-        const pagination = { ...this.pagination };
-        // Read total count from server
-        // pagination.total = data.totalCount;
-        pagination.total = 200;
-        this.loading = false;
-        this.data = data.results;
-        this.pagination = pagination;
-      });
-    },
-  },
 };
 </script>
+
+
+<style lang='less' scoped>
+ #table{
+   padding: 15px;
+
+  //  overflow: hidden;
+ }
+
+</style>

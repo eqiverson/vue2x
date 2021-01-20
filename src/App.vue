@@ -1,11 +1,25 @@
 <template>
 <div id="app">
+
+
+    
   <div class="banner">
     <Navigation></Navigation>
     <SearchInput></SearchInput>
     <Infoledger></Infoledger>
+    
   </div>
-    <router-view></router-view>
+
+
+
+
+<router-view></router-view>
+
+  <a-layout-footer class="footer">  
+  
+  Copyright ©版权所有 2020 通服区块链
+  
+  </a-layout-footer>
 
   </div>
 </template>
@@ -19,35 +33,39 @@
   color: #2c3e50;
 }
 
-.banner{
-  background-image:url('../src/assets/banner.png');
+.banner {
+  background-image: url("../src/assets/banner.png");
   background-size: cover;
   background-position: 50%;
-  background-color: hsla(0,0%,100%,.5);
-  background-repeat:no-repeat;
-  overflow:hidden;
+  background-color: hsla(0, 0%, 100%, 0.5);
+  background-repeat: no-repeat;
+  overflow: hidden;
 }
 
-
-
-
-
+.footer {
+  height: 70px;
+  width: 100%;
+  background: #0a1c42;
+  color: #fff;
+  font-size: 16px;
+  bottom: 0;
+  text-align: center;
+}
 </style>
 
 <script>
 // @ is an alias to /src
-import Navigation from '@/components/Navigation.vue'
-import SearchInput from '@/components/SearchInput.vue'
-import Infoledger from '@/components/Infoledger.vue'
+import Navigation from "@/components/Navigation.vue";
+import SearchInput from "@/components/SearchInput.vue";
+import Infoledger from "@/components/Infoledger.vue";
 
 export default {
-  components: { Navigation,SearchInput,Infoledger },
-  name: 'Home',
+  components: { Navigation, SearchInput, Infoledger },
+  name: "Home",
   data() {
     return {
-      current: [''],
-    }
-    },
-  
-}
+      current: [""],
+    };
+  },
+};
 </script>
