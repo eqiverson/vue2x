@@ -1,35 +1,26 @@
-<!--  -->
 <template>
   <div>
-      <a-row type="flex" justify="center">
-      <a-col :span="4">
-        col-4
-      </a-col>
-      <a-col :span="4">
-        col-4
-      </a-col>
-      <a-col :span="4">
-        col-4
-      </a-col>
-      <a-col :span="4">
-        col-4
-      </a-col>
-    </a-row>
+    <Blocktable></Blocktable>
   </div>
 </template>
 
 <script>
+import Blocktable from "@/components/Blocktable.vue"
+import {getTransaction} from "@/network/home";
+
 export default {
   data () {
     return {
+      pagination:
+          {total:80},
+
     };
   },
 
-  components: {},
+  components: {Blocktable,},
 
   computed: {},
 
-  mounted: {},
 
   methods: {}
 }

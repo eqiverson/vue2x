@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div>
-    <Transtable :pagination="pagination"></Transtable>
+    <Transtable></Transtable>
   </div>
 </template>
 
