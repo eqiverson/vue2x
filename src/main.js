@@ -45,3 +45,12 @@ axios({
 }).then(res => {
   console.log(res);
 })
+
+axios({
+  url:'http://192.168.13.120:7072/v1/getTransactionStatistics',
+  contentType:'application/json',
+  method:'post',
+  data:{}
+}).then(res => {
+  console.log(res);
+})

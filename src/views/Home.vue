@@ -13,7 +13,7 @@
 <script>
 // @ is an alias to /src
 
-import { getLedger,getTransactionStatistics } from "@/network/home";
+import { getLedger, getTransactionStatistics } from "@/network/home";
 import Transtable from "@/components/Transtable.vue";
 
 // let echarts = require("echarts/lib/echarts");
@@ -94,61 +94,104 @@ export default {
     };
   },
   created() {
-        this.infodata();
+    this.infodata();
+
+    this.setchart1();
 
 
   },
 
   methods: {
-    get5days() {
 
-      let myDate = new Date(this.closeTime);
-      let xday = [];
-      let yday = [];
+    // setchart1(){
 
+    //   getLedger({ closeTimeEnd: yday[i] }).then((res) => {
+    //   let myDate = new Date(this.closeTime);
+    //   let arr1 = [];
+    //   let arr2 = [];
+    //   let account = [];
 
-      for (let i = 0; i < 7; i++) {
-        xday.push(moment(myDate).format("M-DD"));
-        yday.push(moment(myDate).format("YYYY-MM-DD HH:MM:SS"));
-        myDate = moment(myDate).subtract(1, "days");
-        };
+    //       res.result.forEach( (item) => {
 
-      console.log(xday);
-      xday.reverse();
-
-      for (let i = 0; i < 7; i++) {
-        getLedger({ closeTimeEnd: yday[i] }).then((res) => {
-
-        this.option1.series[0].data.push(res.result[0].accountCount);
+    //         arr1.push(item.)
 
 
-
-      });
-      };
-
-       getTransactionStatistics().then((res) => {
-        //   for(let i=0 ;  i< res.result.length ; i++){
-        // this.option2.series[0].data.push(res.result[i].txCount);
-        // this.option2.xAxis.data.push(res.result[i].date);
-        // console.log(this.option2.xAxis.data[i]);
-
-        //   }
-        let arr = []
-        console.log(res.result)
-        res.result.forEach(item=>{
-          arr.push(item.date)
-        })
-        console.log(arr);
-        this.option2.xAxis.data = arr;
-        console.log(this.option2.xAxis.data);
-      });
-
-      console.log(this.option1.series[0].data);
-      this.option2.xAxis.data;
-      console.log(this.option2.xAxis.data);
+    //         }
+    //         });
       
+    //     },
 
-      this.option1.xAxis.data = xday;
+    
+
+    setchart2(){
+
+      getTransactionStatistics().then((res) => {
+
+      let arr1 = [];
+      let arr2 = [];
+      res.result.forEach((item) => {
+        arr1.push(moment(item.date).format("M-DD"));
+        arr2.push(item.txCount);
+      });
+
+        arr1.reverse();
+        arr2.reverse();
+
+
+      console.log(arr1);
+      console.log(arr2);
+      console.log(this.option2);
+      this.option2.xAxis.data = arr1;
+      this.option2.series[0].data = arr2;
+      console.log(this.option2.xAxis.data);
+      console.log(this.option2.series[0].data);
+      this.getecharts2(this.option2);
+    });
+
+    },
+
+
+
+
+
+    // get5days() {
+
+
+    //   for (let i = 0; i < 7; i++) {
+    //     xday.push(moment(myDate).format("M-DD"));
+    //     yday.push(moment(myDate).format("YYYY-MM-DD HH:MM:SS"));
+    //     myDate = moment(myDate).subtract(1, "days");
+    //   }
+
+      // console.log(xday);
+      // xday.reverse();
+      // this.option1.xAxis.data = xday; //第一个折线图X时间轴
+
+      //请求第一个折线图每天的地址量
+      // for (let i = 0; i < 7; i++) {
+      //   getLedger({ closeTimeEnd: yday[i] }).then((res) => {
+      //     account.push(res.result[0].accountCount);
+      //   });
+      // }
+
+      // this.option1.series[0].data = account;
+      // console.log(account);
+
+      //   let arr = []
+      // getTransactionStatistics().then((res) => {
+      //   console.log(res.result)
+      //   res.result.forEach(item=>{
+      //     arr.push(item.date)
+      //   })
+      // });
+      //   console.log(arr);
+      //   this.option2.xAxis.data = arr;
+      //   console.log(this.option2.xAxis.data);
+
+      // console.log(this.option1.series[0].data);
+      // this.option2.xAxis.data;
+      // console.log(this.option2.xAxis.data);
+
       // this.option2.xAxis.data = xday;
 
       // this.option1.xAxis.data = ['1-19','1-18','1-17','1-16','1-15','1-14','1-13'];
@@ -158,11 +201,7 @@ export default {
       // // this.option2.series[0].data = transdata;
 
       // console.log(this.option1.series[0].data);
-
-
-
-
-    },
+    // },
 
     infodata() {
       getLedger().then((res) => {
@@ -172,17 +211,8 @@ export default {
         this.applicationCount = res.applicationCount;
         this.nodeCount = res.nodeCount;
         this.closeTime = res.result[0].closeTime;
-        this.get5days();
-
-        this.getecharts1(this.option1);
-
-        this.getecharts2(this.option2);
-
-
+        this.setchart2();
       });
-
-
-
     },
 
     getecharts1(option) {
@@ -205,12 +235,9 @@ export default {
 </script>
 
 <style lang='less' scoped>
-
-  
-  .home {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
+.home {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 </style>
