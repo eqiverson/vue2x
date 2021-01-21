@@ -75,6 +75,17 @@ export function getTransactionStatistics(params) {
   })
 }
 
+export function getAccountCount(params) {
+  return request({
+    data:{},
+    url: '/v1/getAccountCount',
+    params
+
+  })
+}
+
+
+
 
 
 // export function getHomeGoods(type, page) {

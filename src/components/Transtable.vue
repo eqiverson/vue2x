@@ -1,96 +1,112 @@
 <!--  -->
 <template>
   <div>
-    <div>交易列表</div>
+
     <div>
-    <Datatable :columns="columns" :data="data"></Datatable>
+    <Datatable :columns="columns" :data="data" ></Datatable>
     </div>
   </div>
 </template>
 
 <script>
 import Datatable from "@/components/common/Datatable.vue"
-
+import {  getTransaction } from "@/network/home";
 
 const columns = [
+
   {
-    title: 'Name',
-    dataIndex: 'name',
-    key: 'name',
-    scopedSlots: { customRender: 'name' },
+    title: '交易时间',
+    dataIndex: 'closeTime',
+    key: 'closeTime',
+    align:'center',
   },
   {
-    title: 'Age',
-    dataIndex: 'age',
-    key: 'age',
-    width: 80,
+    title: '所属区块',
+    dataIndex: 'seq',
+    key: 'seq',
+    align:'center',
+
   },
   {
-    title: 'Address',
-    dataIndex: 'address',
-    key: 'address 1',
+    title: '交易类型',
+    dataIndex: 'type',
+    key: 'type',
+    align:'center',
+  },
+  {
+    title: '源账户',
+    dataIndex: 'sourceAddress',
+    key: 'sourceAddress',
+    ellipsis: true,
+    align:'center',
+  },
+  {
+    title: '目的账户',
+    dataIndex: 'toac',
+    key: 'toac',
+    ellipsis: true,
+    align:'center',
+  },
+  {
+    title: '所属应用',
+    dataIndex: 'applicationName',
+    key: 'applicationName',
     ellipsis: true,
   },
   {
-    title: 'Long Column Long Column Long Column',
-    dataIndex: 'address',
-    key: 'address 2',
+    title: '交易哈希',
+    dataIndex: 'hash',
+    key: 'hash',
+    align:'center',
     ellipsis: true,
   },
   {
-    title: 'Long Column Long Column',
-    dataIndex: 'address',
-    key: 'address 3',
-    ellipsis: true,
-  },
-  {
-    title: 'Long Column',
-    dataIndex: 'address',
-    key: 'address 4',
-    ellipsis: true,
+    title: '状态',
+    dataIndex: 'statue',
+    key: 'statue',
+    align:'center',
   },
 ];
 
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park, New York No. 1 Lake Park',
-    tags: ['nice', 'developer'],
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    address: 'London No. 2 Lake Park, London No. 2 Lake Park',
-    tags: ['loser'],
-  },
-  {
-    key: '3',
-    name: 'Joe Black',
-    age: 32,
-    address: 'Sidney No. 1 Lake Park, Sidney No. 1 Lake Park',
-    tags: ['cool', 'teacher'],
-  },
-];
+
 
 export default {
   name:"Transtable",
+
+  components: {Datatable},
+
   data () {
     return {
       columns,
-      data,
+      data:[],
+
+      
     };
+
   },
 
-  components: {Datatable},
+  props: {
+  },
+
+  created () {
+    this.tabledata();
+  },
+
+
 
   computed: {},
 
 
-  methods: {}
+  methods: {
+    tabledata(){
+      getTransaction().then(res => {
+        console.log(res);
+        this.data = res.result;
+      })
+    }
+  },
 }
+
 
 </script>
 <style lang='less' scoped>
