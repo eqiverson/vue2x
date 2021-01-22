@@ -60,11 +60,11 @@ export default {
   methods: {
     
     linktolastblocks() {
-      this.$router.push({name:'lastblock' , params:{seq:seq}})
+      this.$router.push({name:'lastblock' , data:{seq:seq}})
     },
 
     infodata() {
-      getLedger().then((res) => {
+      getLedger({}).then((res) => {
         this.seq = res.result[0].seq;
         this.accountCount = res.result[0].accountCount;
         this.txCount = res.result[0].txCount;

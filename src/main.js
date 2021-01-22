@@ -41,16 +41,16 @@ axios({
   url:'http://192.168.13.120:7072/v1/getLedger',
   contentType:'application/json',
   method:'post',
-  data:{}
+  data:{},
 }).then(res => {
   console.log(res);
 })
 
 axios({
-  url:'http://192.168.13.120:7072/v1/getTransactionStatistics',
+  url:'http://192.168.13.120:7072/v1/getTransaction',
   contentType:'application/json',
   method:'post',
-  data:{}
+  data:{pageSize:6},
 }).then(res => {
   console.log(res);
 })

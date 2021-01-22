@@ -9,11 +9,10 @@ import {request} from "./request";
 //   })
 // }
 
-export function getLedger(params) {
+export function getLedger(data) {
   return request({
-    data:{},
+    data,
     url: '/v1/getLedger',
-    params
   })
 }
 
@@ -27,59 +26,53 @@ export function getLedger(params) {
 
 
 //###### 5.2 查询交易执行记录
-export function getTransaction(params) {
+export function getTransaction(data) {
   return request({
-    data:{},
+    data,
     url: '/v1/getTransaction',
-    params
 
   })
 }
 
 //###### 5.6 查询账户信息
-export function getAccount(params) {
+export function getAccount(data) {
   return request({
-    data:{},
+    data,
     url: '/v1/getAccount',
-    params
 
   })
 }
 
 //###### 5.7 查询接入应用信息
-export function getApplication(params) {
+export function getApplication(data) {
   return request({
-    data:{},
+    data,
     url: '/v1/getApplication',
-    params
 
   })
 }
 
 //###### 5.8 查询节点状态
-export function getNode(params) {
+export function getNode(data) {
   return request({
-    data:{},
+    data,
     url: '/v1/getNode',
-    params
 
   })
 }
 
-export function getTransactionStatistics(params) {
+export function getTransactionStatistics(data) {
   return request({
-    data:{},
+    data,
     url: '/v1/getTransactionStatistics',
-    params
 
   })
 }
 
-export function getAccountCount(params) {
+export function getAccountCount(data) {
   return request({
-    data:{},
+    data,
     url: '/v1/getAccountCount',
-    params
 
   })
 }

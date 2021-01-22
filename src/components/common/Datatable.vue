@@ -14,22 +14,24 @@
 export default {
   name: 'Datatable',
   data() {
-    return {}
+    return {
+      
+    }
   },
   props: {
     columns: Array,
     data: Array,
-    pagination:{
-    type:Boolean,
-      default:false},
-
-
-
-
-
+    pagination:
+    {
+    type:Object,
+      default:function (){
+        return false;
+        },
+  },
   },
 
   methods: {},
+
 }
 
 </script>

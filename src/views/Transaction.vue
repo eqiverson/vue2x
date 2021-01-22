@@ -1,29 +1,53 @@
 <!--  -->
 <template>
   <div>
-    <Transtable></Transtable>
+    <Transtable  :data="data" :pagination="pagination"></Transtable>
   </div>
 </template>
 
 <script>
 import Transtable from "@/components/Transtable.vue";
+import {getTransaction} from "@/network/home";
+
+
+
 export default {
-  data () {
+  data() {
     return {
-      pagination:
-      {total:80},
-      
+      count:0,
+      data:[],
     };
   },
 
-  components: {Transtable,},
+  created() {
+    this.gettabledata();
+  },
 
-  computed: {},
+  components: { Transtable },
 
+  computed: {
+    pagination() {
+      return {
+        defaultCurrent: 1,
+        total:this.count,
+        showTotal: (total, range) =>
+          `${range[0]}-${range[1]} 共 ${total} 条`,
+        showSizeChanger: true,
+        showQuickJumper: true,
+      };
+    },
+  },
 
-  methods: {}
-}
-
+  methods: {
+    gettabledata() {
+      getTransaction({}).then((res) => {
+        console.log(res);
+        this.data = res.result;
+        this.count = res.count;
+      });
+    },
+  },
+};
 </script>
 <style lang='scss' scoped>
 </style>

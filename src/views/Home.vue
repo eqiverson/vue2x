@@ -6,7 +6,7 @@
     </div>
     <div>
       <div>交易列表（最新生成）</div>
-      <Transtable></Transtable>
+      <Transtable :data="tabledata"></Transtable>
     </div>
   </div>
 </template>
@@ -15,11 +15,10 @@
 // @ is an alias to /src
 
 import {
-  
   getLedger,
   getTransactionStatistics,
   getAccountCount,
-
+  getTransaction,
 } from "@/network/home";
 import Transtable from "@/components/Transtable.vue";
 
@@ -99,20 +98,19 @@ export default {
 
       closeTime: [],
 
+      tabledata: [],
+
+      tablecount:0,
     };
   },
-
 
   created() {
     this.infodata();
   },
 
   methods: {
-    
-
-
     infodata() {
-      getLedger().then((res) => {
+      getLedger({}).then((res) => {
         this.seq = res.result[0].seq;
         this.accountCount = res.result[0].accountCount;
         this.txCount = res.result[0].txCount;
@@ -121,6 +119,7 @@ export default {
         this.closeTime = res.result[0].closeTime;
         this.setchart2();
         this.setchart1();
+        this.gettabledata();
       });
     },
 
@@ -152,7 +151,6 @@ export default {
         arr1.reverse();
         arr2.reverse();
 
-
         this.option2.xAxis.data = arr1;
         this.option2.series[0].data = arr2;
 
@@ -169,11 +167,30 @@ export default {
       let chart = echarts.init(document.getElementById("transtcount"));
       chart.setOption(option);
     },
+
+    gettabledata() {
+      getTransaction({pageSize:6}).then((res) => {
+        console.log(res);
+        this.tabledata = res.result;
+        this.tablecount = res.count;
+      });
+    },
   },
 
   mounted() {},
 
-  computed: {},
+  computed: {
+        // pagination(){
+      // {
+      //   defaultCurrent: 1,
+      //   total: this.tablecount,
+      //   showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+      //   showSizeChanger: true,
+      //   showQuickJumper: true,
+
+      // }
+    // }
+  },
 };
 </script>
 
