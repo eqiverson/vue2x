@@ -77,6 +77,13 @@ export function getAccountCount(data) {
   })
 }
 
+export function getApplicationTurnover(data) {
+  return request({
+    data,
+    url: '/v1/getApplicationTurnover',
+
+  })
+}
 
 
 

@@ -1,6 +1,9 @@
 <template>
   <div class="container">
     <div class="home">
+      <div>
+
+      </div>
       <div id="accountcount" style="width: 600px; height: 400px"></div>
       <div id="transtcount" style="width: 600px; height: 400px"></div>
     </div>
@@ -55,7 +58,7 @@ export default {
         xAxis: {
           data: [],
         },
-        yAxis: { type: "value" },
+        yAxis: {type: "value"},
         series: [
           {
             name: "增长量",
@@ -77,7 +80,7 @@ export default {
         xAxis: {
           data: [],
         },
-        yAxis: { type: "value" },
+        yAxis: {type: "value"},
         series: [
           {
             name: "交易量",
@@ -100,7 +103,7 @@ export default {
 
       tabledata: [],
 
-      tablecount:0,
+      tablecount: 0,
     };
   },
 
@@ -169,29 +172,47 @@ export default {
     },
 
     gettabledata() {
-      getTransaction({pageSize:6}).then((res) => {
+      getTransaction({pageSize: 6}).then((res) => {
         console.log(res);
         this.tabledata = res.result;
         this.tablecount = res.count;
       });
     },
+
+    //   loopdata(n){
+    //
+    //     return new Promise(res => {
+    //
+    //     setTimeout(() => {
+    //       this.infodata();
+    //       },n);
+    //     });
+    //   },
+    //
+    //   async loopit (n) {
+    //     const n = 5000;
+    //     this.loopdata(n) = await
+    //   }
   },
 
-  mounted() {},
+
+  mounted() {
+    setInterval(this.infodata, 1000);
+  },
 
   computed: {
-        // pagination(){
-      // {
-      //   defaultCurrent: 1,
-      //   total: this.tablecount,
-      //   showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
-      //   showSizeChanger: true,
-      //   showQuickJumper: true,
+    // pagination(){
+    // {
+    //   defaultCurrent: 1,
+    //   total: this.tablecount,
+    //   showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
+    //   showSizeChanger: true,
+    //   showQuickJumper: true,
 
-      // }
+    // }
     // }
   },
-};
+}
 </script>
 
 <style lang='less' scoped>
