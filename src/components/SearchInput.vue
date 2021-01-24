@@ -1,6 +1,6 @@
 <template>
   <div id="search">
-  <input type="search" 
+  <input type="search" v-model="Searchresult"
   placeholder="请输入区块高度值/区块哈希值/交易哈希/账号地址"
   @keydown="SearchAction" >
 
@@ -22,8 +22,8 @@ export default {
   },
   methods:{
     SearchAction:_.throttle(function (e){
-      const inputValue = e.target.vaule;
-      this.Searchresult = this.Mutidata.filter((item) =>{
+      const inputValue = e.target.value;
+      this.Searchresult = this.multidata.filter((item) =>{
       if (item.course_name.includes(inputValue)){
         return item;
       }
