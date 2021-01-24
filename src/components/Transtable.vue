@@ -2,7 +2,11 @@
 <template>
   <div>
   <div id="table">
-    <a-table :columns="columns" :data-source="data" :pagination="false"  >
+    <a-table
+        :columns="columns"
+        :data-source="data"
+        :pagination="false"
+        @change="handlechange"  >
       <a slot="sourceAddress" slot-scope="text">{{ text }}</a>     
     </a-table>
   </div>
@@ -119,6 +123,7 @@ export default {
   props: {
     data: Array,
 
+
     pagination:{
     type:Object,
     default:function (){
@@ -135,6 +140,14 @@ export default {
 
 
   methods: {
+  handlechange(pagination) {
+      console.log(pagination);
+      const paper = {...this,pagination};
+      paper.current = pagination.current;
+      this.pagination = paper;
+      this.$emit("changepage",this.pagination.current);
+
+    }
   },
 }
 
