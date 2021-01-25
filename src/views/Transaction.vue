@@ -48,7 +48,9 @@ export default {
     },
 
     changepage(n){
+      console.log(n);
       getTransaction({page:n}).then((res) => {
+      this.pagination = n;
         console.log(res);
         this.data = res.result;
         this.count = res.count;

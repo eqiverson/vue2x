@@ -3,7 +3,7 @@
   <div>
 
     <div>
-      <Accountstable  :data="data" :pagination="pagination"></Accountstable>
+      <Accountstable  @changepage="changepage" :data="data" :pagination="pagination"></Accountstable>
     </div>
 
   </div>
@@ -14,7 +14,7 @@
 <script>
 
 import Accountstable from "@/components/Accountstable.vue";
-import {getApplicationTurnover, getTransaction} from "@/network/home";
+import { getAccount } from "@/network/home";
 
 export default {
 
@@ -39,12 +39,22 @@ export default {
 
   methods: {
     gettabledata() {
-      getApplicationTurnover({}).then((res) => {
+      getAccount({}).then((res) => {
         console.log(res);
         this.data = res.result;
         this.count = res.count;
       });
     },
+
+        changepage(n){
+      console.log(n);
+      getAccount({page:n}).then((res) => {
+      this.pagination = n;
+        console.log(res);
+        this.data = res.result;
+        this.count = res.count;
+    })
+  }
   },
 
   // mounted() {

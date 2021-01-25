@@ -5,7 +5,7 @@
     <a-table
         :columns="columns"
         :data-source="data"
-        :pagination="false"
+        :pagination="pagination"
         @change="handlechange"  >
       <a slot="sourceAddress" slot-scope="text">{{ text }}</a>     
     </a-table>
@@ -80,6 +80,7 @@ const columns = [
     key: "hash",
     align: "center",
     ellipsis: true,
+    scopedSlots: { customRender: 'sourceAddress' },
   },
   {
     title: "状态",
@@ -125,7 +126,7 @@ export default {
 
 
     pagination:{
-    type:Object,
+    // type:Object,
     default:function (){
         return false;
         },
@@ -141,12 +142,8 @@ export default {
 
   methods: {
   handlechange(pagination) {
-      console.log(pagination);
-      const paper = {...this,pagination};
-      paper.current = pagination.current;
-      this.pagination = paper;
-      this.$emit("changepage",this.pagination.current);
-
+      console.log(pagination.current);
+      this.$emit("changepage",pagination.current);
     }
   },
 }

@@ -12,9 +12,12 @@
         <router-link to="/transaction">交易</router-link></a-menu-item>
       <a-menu-item key="nodes">
         <router-link to="/nodes">节点</router-link></a-menu-item>
-      <a-sub-menu>
-        <span slot="title" class="submenu-title-wrapper" key="application"><router-link to="./application">应用</router-link></span>
+      <a-menu-item key="application">
+        <router-link to="/application/accounts">账号</router-link></a-menu-item>
+        <!-- <span slot="title" class="submenu-title-wrapper" key="application"><router-link to="./application">应用</router-link></span> -->
+      <!-- <a-sub-menu>
 
+        <span slot="title" class="submenu-title-wrapper" key="application"><router-link to="./application">应用</router-link></span>
           <a-menu-item key="setting:1"> Option 1 </a-menu-item>
           <a-menu-item key="setting:2"> Option 2 </a-menu-item>
 
@@ -22,7 +25,7 @@
           <a-menu-item key="setting:3"> Option 3 </a-menu-item>
           <a-menu-item key="setting:4"> Option 4 </a-menu-item>
 
-      </a-sub-menu>
+      </a-sub-menu> -->
     </a-menu>
   </div>
   

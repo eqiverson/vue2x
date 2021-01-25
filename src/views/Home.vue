@@ -120,9 +120,9 @@ export default {
         this.applicationCount = res.applicationCount;
         this.nodeCount = res.nodeCount;
         this.closeTime = res.result[0].closeTime;
-        this.setchart2();
-        this.setchart1();
-        this.gettabledata();
+
+
+        console.log(this.seq);
       });
     },
 
@@ -180,8 +180,11 @@ export default {
     },
 
     //   loopdata(n){
-    //
-    //     return new Promise(res => {
+
+    //     let that = this;
+    // //
+    //     setInterval(that.infodata(), n);
+    //     }
     //
     //     setTimeout(() => {
     //       this.infodata();
@@ -197,7 +200,10 @@ export default {
 
 
   mounted() {
-    setInterval(this.infodata, 1000);
+    setInterval(() => { this.infodata() },10000);
+    this.setchart2();
+    this.setchart1();
+    this.gettabledata();
   },
 
   computed: {

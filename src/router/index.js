@@ -6,6 +6,7 @@ import Transaction from '../views/Transaction.vue'
 import Nodes from '../views/Nodes.vue'
 import Application from '../views/Application.vue'
 import Accounts from '../views/Accounts.vue'
+import Transctiondetail from '../views/detail/Transctiondetail.vue'
 
 
 
@@ -41,17 +42,22 @@ const routes = [
     component: Nodes,
   },
   {
-    path:'/application',
-    name:'Application',
-    component:Application,
-    children:[
-      {
-        path:'/accounts',
-        component: Accounts
-      }
+    path:'/application/accounts',
+    name:'accounts',
+    component:Accounts,
+    // children:[
+    //   {
+    //     path:'',
+    //     component: Accounts
+    //   }
 
-    ],
+    // ],
+  },
+  {
+    path:'/transaction/:hash',
+    component:Transctiondetail,
   }
+
 ]
 
 const router = new VueRouter({

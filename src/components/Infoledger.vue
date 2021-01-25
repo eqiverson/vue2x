@@ -13,23 +13,23 @@
 
     <div class="infobox">
       <a-row type="flex" justify="center" align="middle">
-        <a-col :span="4" class="infobox-item" @click="linktolastblocks">
+        <a-col :span="6" class="infobox-item" @click="linktolastblocks">
           <div class="data">{{ seq }}</div>
-          <div class="title">区块</div>
+          <div class="title">当前区块高度</div>
         </a-col>
-        <a-col :span="4" class="infobox-item" >
+        <a-col :span="6" class="infobox-item" @click="linktoaccounts">
           <div class="data">{{ accountCount }}</div>
           <div class="title">总账号数</div>
         </a-col>
-        <a-col :span="4" class="infobox-item">
+        <a-col :span="6" class="infobox-item" @click="linktotrans">
           <div class="data">{{ txCount }}</div>
           <div class="title">总交易数</div>
         </a-col>
-        <a-col :span="4" class="infobox-item">
+        <!-- <a-col :span="4" class="infobox-item">
           <div class="data">{{ applicationCount }}</div>
           <div class="title">接入应用数</div>
-        </a-col>
-        <a-col :span="4" class="infobox-item">
+        </a-col> -->
+        <a-col :span="6" class="infobox-item" @click="linktonodes">
           <div class="data">{{ nodeCount }}</div>
           <div class="title">实时节点数</div>
         </a-col>
@@ -45,11 +45,11 @@ export default {
   name: "Infoledger",
   data() {
     return {
-      seq: '-',
-      accountCount: '-',
-      txCount: '-',
-      applicationCount: '-',
-      nodeCount: '-',
+      seq: "-",
+      accountCount: "-",
+      txCount: "-",
+      applicationCount: "-",
+      nodeCount: "-",
     };
   },
 
@@ -58,9 +58,17 @@ export default {
   },
 
   methods: {
-    
     linktolastblocks() {
-      this.$router.push({name:'lastblock' , data:{seq:seq}})
+      this.$router.push({ name: "lastblock", params: { seq: seq } });
+    },
+    linktoaccounts() {
+      this.$router.push({ name: "accounts" });
+    },
+    linktotrans() {
+      this.$router.push({ name: "Transaction" });
+    },
+    linktonodes() {
+      this.$router.push({ name: "Nodes" });
     },
 
     infodata() {
@@ -88,6 +96,8 @@ export default {
   // width: 1920px;
 
   .infobox {
+
+
     .infobox-item {
       text-align: center;
       cursor: pointer;
