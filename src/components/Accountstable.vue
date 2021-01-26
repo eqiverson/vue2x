@@ -6,8 +6,10 @@
         :columns="columns"
         :data-source="data"
         :pagination="pagination"
-        @change="handlechange"  >>
-        <a slot="sourceAddress" slot-scope="text">{{ text }}</a>
+        @change="handlechange"  >
+      <template slot="address" slot-scope="text"> 
+        <router-link :to="{ name:'accountdetail' , params:{ account:text }}">{{ text }}</router-link>
+      </template>
       </a-table>
     </div>
 
@@ -25,7 +27,7 @@ const columns = [
     key: "address",
     ellipsis: true,
     align: "center",
-    scopedSlots: { customRender: 'sourceAddress' },
+    scopedSlots: { customRender: 'address' },
   },
   // {
   //   title: "交易时间",

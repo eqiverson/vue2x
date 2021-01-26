@@ -1,7 +1,7 @@
 <!--  -->
 <template>
   <div>
-    <Transtable  @changepage="changepage" :data="data" :pagination="pagination"></Transtable>
+    <Transtable   @changepage="changepage" :data="data" :pagination="pagination"></Transtable>
   </div>
 </template>
 
@@ -55,7 +55,8 @@ export default {
         this.data = res.result;
         this.count = res.count;
     })
-  }
+  },
+
   }
 };
 </script>

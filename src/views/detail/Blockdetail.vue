@@ -2,11 +2,11 @@
 <template>
   <div>
     <div class="container">
-      <a-divider orientation="left"> 交易： {{ $route.params.hash }} </a-divider>
+      <a-divider orientation="left"> 查看区块详情： {{ $route.params.hash }} </a-divider>
       <div id="detail">
         <div>
           <a-row  type="flex" >
-            <a-col  :span="3" :offset="2">交易时间</a-col>
+            <a-col  :span="3" :offset="2">区块高度</a-col>
             <a-col  :span="10">{{}}</a-col>
           </a-row>
           <a-row type="flex">
@@ -62,7 +62,7 @@
 import {getTransaction} from "@/network/home";
 
 export default {
-  name: "Transctiondetail",
+  name: "Blockdetail",
   data() {
     return {
       hash:String,

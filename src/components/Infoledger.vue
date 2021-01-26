@@ -13,15 +13,15 @@
 
     <div class="infobox">
       <a-row type="flex" justify="center" align="middle">
-        <a-col :span="6" class="infobox-item" @click="linktolastblocks">
-          <div class="data">{{ seq }}</div>
+        <a-col :span="6" class="infobox-item">
+          <router-link class="data" :to="{ name:'lastblock',params: { seq: seq }}" >{{ seq }}</router-link>
           <div class="title">当前区块高度</div>
         </a-col>
-        <a-col :span="6" class="infobox-item" @click="linktoaccounts">
+        <a-col :span="6" class="infobox-item" >
           <div class="data">{{ accountCount }}</div>
           <div class="title">总账号数</div>
         </a-col>
-        <a-col :span="6" class="infobox-item" @click="linktotrans">
+        <a-col :span="6" class="infobox-item" >
           <div class="data">{{ txCount }}</div>
           <div class="title">总交易数</div>
         </a-col>
@@ -29,7 +29,7 @@
           <div class="data">{{ applicationCount }}</div>
           <div class="title">接入应用数</div>
         </a-col> -->
-        <a-col :span="6" class="infobox-item" @click="linktonodes">
+        <a-col :span="6" class="infobox-item" >
           <div class="data">{{ nodeCount }}</div>
           <div class="title">实时节点数</div>
         </a-col>
@@ -58,18 +58,20 @@ export default {
   },
 
   methods: {
-    linktolastblocks() {
-      this.$router.push({ name: "lastblock", params: { seq: seq } });
-    },
-    linktoaccounts() {
-      this.$router.push({ name: "accounts" });
-    },
-    linktotrans() {
-      this.$router.push({ name: "Transaction" });
-    },
-    linktonodes() {
-      this.$router.push({ name: "Nodes" });
-    },
+    
+    // linktolastblocks() {
+      
+    //   this.$router.push({ name: "lastblock", params: {  } });
+    // },
+    // linktoaccounts() {
+    //   this.$router.push({ name: "accounts" });
+    // },
+    // linktotrans() {
+    //   this.$router.push({ name: "Transaction" });
+    // },
+    // linktonodes() {
+    //   this.$router.push({ name: "Nodes" });
+    // },
 
     infodata() {
       getLedger({}).then((res) => {

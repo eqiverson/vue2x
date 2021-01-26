@@ -7,12 +7,42 @@ import Nodes from '../views/Nodes.vue'
 import Application from '../views/Application.vue'
 import Accounts from '../views/Accounts.vue'
 import Transctiondetail from '../views/detail/Transctiondetail.vue'
+import Accountdetail from '../views/detail/Accountdetail.vue'
+import Blockdetail from '../views/detail/Blockdetail.vue'
 
 
 
 Vue.use(VueRouter)
 
+const Error = {
+    template:'<div>404 not found</div>'
+}
+
 const routes = [
+
+  {
+    name:'accountdetail',
+    path:'/aransaction/:account',
+    component:Accountdetail,
+  },
+
+  
+
+  {
+    name:'blockdetail',
+    path:'/Blockdetail/:block',
+    component:Blockdetail,
+  },
+
+  
+
+  {
+    name:'transctiondetail',
+    path:'/transaction/:hash',
+    component:Transctiondetail,
+  },
+
+  
   {
     path:'/blocks/:seq',
     name:'lastblock',
@@ -53,10 +83,14 @@ const routes = [
 
     // ],
   },
+
+
   {
-    path:'/transaction/:hash',
-    component:Transctiondetail,
+    path:'*',
+    component:Error,
   }
+
+  
 
 ]
 

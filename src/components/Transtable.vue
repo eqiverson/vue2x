@@ -7,7 +7,10 @@
         :data-source="data"
         :pagination="pagination"
         @change="handlechange"  >
-      <a slot="sourceAddress" slot-scope="text">{{ text }}</a>     
+      <!-- <a slot="sourceAddress" slot-scope="text">{{ text }}</a>      -->
+      <template slot="sourceAddress" slot-scope="text"> 
+        <router-link :to="{ name:'transctiondetail' , params:{ hash:text }}">{{ text }}</router-link>
+      </template>
     </a-table>
   </div>
   
@@ -144,7 +147,8 @@ export default {
   handlechange(pagination) {
       console.log(pagination.current);
       this.$emit("changepage",pagination.current);
-    }
+    },
+
   },
 }
 

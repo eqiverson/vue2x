@@ -62,7 +62,7 @@
 import {getTransaction} from "@/network/home";
 
 export default {
-  name: "Transctiondetail",
+  name: "Accountdetail",
   data() {
     return {
       hash:String,

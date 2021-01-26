@@ -6,7 +6,9 @@
         :data-source="data"
         :pagination="pagination"
         @change="handlechange"  >
-      <a slot="search" slot-scope="text">{{ text }}</a>     
+      <template slot="seq" slot-scope="text"> 
+        <router-link :to="{ name:'blockdetail' , params:{ block:text }}">{{ text }}</router-link>
+      </template>  
     </a-table>
   </div>
 
@@ -20,7 +22,7 @@ const columns = [
     dataIndex: "seq",
     key: "seq",
     align: "center",
-    scopedSlots: { customRender: 'search' },
+    scopedSlots: { customRender: 'seq' },
   },
   {
     title: '生成时间',
