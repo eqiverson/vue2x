@@ -1,12 +1,19 @@
 <template>
   <div class="container">
     <div class="home">
-      <div>
-
-      </div>
+      <div></div>
       <div id="accountcount" style="width: 600px; height: 400px"></div>
       <div id="transtcount" style="width: 600px; height: 400px"></div>
+
     </div>
+    
+      <div id="list-demo" class="demo">
+        <transition-group name="list" tag="p">
+          <span v-for="item in items" v-bind:key="item" class="list-item">
+            {{ item }}
+          </span>
+        </transition-group>
+      </div>
     <div>
       <div>交易列表（最新生成）</div>
       <Transtable :data="tabledata"></Transtable>
@@ -58,7 +65,7 @@ export default {
         xAxis: {
           data: [],
         },
-        yAxis: {type: "value"},
+        yAxis: { type: "value" },
         series: [
           {
             name: "增长量",
@@ -80,7 +87,7 @@ export default {
         xAxis: {
           data: [],
         },
-        yAxis: {type: "value"},
+        yAxis: { type: "value" },
         series: [
           {
             name: "交易量",
@@ -104,11 +111,16 @@ export default {
       tabledata: [],
 
       tablecount: 0,
+
+      items: [1, 2, 3, 4, 5],
+      nextNum1: 6,
+      nextNum2: 7,
     };
   },
 
   created() {
     this.infodata();
+    this.transition1();
   },
 
   methods: {
@@ -120,7 +132,6 @@ export default {
         this.applicationCount = res.applicationCount;
         this.nodeCount = res.nodeCount;
         this.closeTime = res.result[0].closeTime;
-
 
         console.log(this.seq);
       });
@@ -172,11 +183,21 @@ export default {
     },
 
     gettabledata() {
-      getTransaction({pageSize: 6}).then((res) => {
+      getTransaction({ pageSize: 6 }).then((res) => {
         console.log(res);
         this.tabledata = res.result;
         this.tablecount = res.count;
       });
+    },
+
+    transition1() {
+      setInterval(() => {
+
+        this.items.splice(this.items.length, 0, this.nextNum1, this.nextNum2);
+        this.items.splice(0, 2);
+                this.nextNum1 = this.nextNum1 + 2;
+        this.nextNum2 = this.nextNum2 + 2;
+      }, 1000);
     },
 
     //   loopdata(n){
@@ -198,9 +219,9 @@ export default {
     //   }
   },
 
-
   mounted() {
-    setInterval(() => { this.infodata() },10000);
+    // setInterval(() => { this.infodata() },10000);
+
     this.setchart2();
     this.setchart1();
     this.gettabledata();
@@ -214,11 +235,10 @@ export default {
     //   showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
     //   showSizeChanger: true,
     //   showQuickJumper: true,
-
     // }
     // }
   },
-}
+};
 </script>
 
 <style lang='less' scoped>
@@ -226,5 +246,21 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
 }
+
+  .list-item {
+    display: inline-block;
+    // margin-top: 50px;
+    margin-right: 10px;
+  }
+  .list-enter-active,
+  .list-leave-active {
+    transition: all 1s;
+  }
+  .list-enter, .list-leave-to
+/* .list-leave-active for below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
 </style>
