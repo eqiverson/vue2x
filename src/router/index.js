@@ -9,13 +9,13 @@ import Accounts from '../views/Accounts.vue'
 import Transctiondetail from '../views/detail/Transctiondetail.vue'
 import Accountdetail from '../views/detail/Accountdetail.vue'
 import Blockdetail from '../views/detail/Blockdetail.vue'
-
+import Error404 from '../components/common/Error404.vue'
 
 Vue.use(VueRouter)
-
-const Error = {
-    template:'<div>404 not found</div>',
-}
+//
+// const Error = {
+//     template:'<div>404 not found</div>',
+// }
 
 const routes = [
 
@@ -81,9 +81,9 @@ const routes = [
 
   {
     path: '/404',
-    component:E
+    component:Error404
 },
-                {
+  {
     path: '*',
     redirect:'/404',
 },

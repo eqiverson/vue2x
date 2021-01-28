@@ -38,7 +38,7 @@ export default {
 
   methods: {
     transition1() {
-      
+
 
       setInterval(() => {
         this.nextNum1=this.nextNum1+2;
@@ -56,6 +56,9 @@ export default {
 .list-item {
   display: inline-block;
   margin-right: 10px;
+  border-left-color: blue;
+  border-left-width: 25px;
+  border-left-style:solid;
 }
 .list-enter-active, .list-leave-active {
   transition: all 1s;
