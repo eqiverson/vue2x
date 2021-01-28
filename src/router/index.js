@@ -11,11 +11,10 @@ import Accountdetail from '../views/detail/Accountdetail.vue'
 import Blockdetail from '../views/detail/Blockdetail.vue'
 
 
-
 Vue.use(VueRouter)
 
 const Error = {
-    template:'<div>404 not found</div>'
+    template:'<div>404 not found</div>',
 }
 
 const routes = [
@@ -30,7 +29,7 @@ const routes = [
 
   {
     name:'blockdetail',
-    path:'/Blockdetail/:block',
+    path:'/blocks/:block',
     component:Blockdetail,
   },
 
@@ -43,11 +42,6 @@ const routes = [
   },
 
   
-  {
-    path:'/blocks/:seq',
-    name:'lastblock',
-    component:Blocks
-  },
 
 
   {
@@ -86,11 +80,13 @@ const routes = [
 
 
   {
-    path:'*',
-    component:Error,
-  }
-
-  
+    path: '/404',
+    component:E
+},
+                {
+    path: '*',
+    redirect:'/404',
+},
 
 ]
 

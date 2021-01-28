@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div>
+  <div>111111
     <div class="container">
       <a-divider orientation="left"> 查看区块详情： {{ $route.params.hash }} </a-divider>
       <div id="detail">

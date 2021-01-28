@@ -1,5 +1,6 @@
 <!--  -->
 <template>
+<div>
   <div id="list-demo" class="demo">
 
   <transition-group name="list" tag="p">
@@ -7,6 +8,10 @@
       {{ item }}
     </span>
   </transition-group>
+</div>
+<div>
+</div>
+
 </div>
 </template>
 
@@ -18,7 +23,8 @@ export default {
     nextNum1: 6,
     nextNum2: 7,
 
-    };
+
+    }
   },
     created() {
     this.transition1();
@@ -32,6 +38,7 @@ export default {
 
   methods: {
     transition1() {
+      
 
       setInterval(() => {
         this.nextNum1=this.nextNum1+2;

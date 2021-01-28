@@ -6,9 +6,9 @@
         :data-source="data"
         :pagination="pagination"
         @change="handlechange"  >
-      <template slot="seq" slot-scope="text"> 
+      <template slot="seq" slot-scope="text">
         <router-link :to="{ name:'blockdetail' , params:{ block:text }}">{{ text }}</router-link>
-      </template>  
+      </template>
     </a-table>
   </div>
 
