@@ -4,16 +4,16 @@
   <div class="banner-logo"><img src="../assets/navlogo.png">广东通服区块链浏览器</div>
     <div class="banner-nav" >
     <a-menu v-model="current" mode="horizontal" id="container">
-      <a-menu-item key="home" id="nav">
-        <router-link to="/">首页</router-link></a-menu-item>
-      <a-menu-item key="blocks" id="nav">
-        <router-link to="/blocks">区块</router-link></a-menu-item>
-      <a-menu-item key="transaction" id="nav">
+      <a-menu-item key="home" >
+        <router-link to="/" id="nav">首页</router-link></a-menu-item>
+      <a-menu-item key="blocks" >
+        <router-link to="/blocks" id="nav">区块</router-link></a-menu-item>
+      <a-menu-item key="transaction" >
         <router-link to="/transaction" id="nav">交易</router-link></a-menu-item>
-      <a-menu-item key="nodes" id="nav">
-        <router-link to="/nodes" >节点</router-link></a-menu-item>
-      <a-menu-item key="application" id="nav">
-        <router-link to="/application/accounts">账号</router-link></a-menu-item>
+      <a-menu-item key="nodes" >
+        <router-link to="/nodes" id="nav">节点</router-link></a-menu-item>
+      <a-menu-item key="application" >
+        <router-link to="/application/accounts" id="nav">账号</router-link></a-menu-item>
         <!-- <span slot="title" class="submenu-title-wrapper" key="application"><router-link to="./application">应用</router-link></span> -->
       <!-- <a-sub-menu>
 
@@ -87,10 +87,7 @@ export default {
     border-bottom-style: none;
     font-size: 22px;
     font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", Arial, sans-serif;
-  }::selection{
-  color: #FFFFFF;
-       border-bottom: 3px solid #FFF;
-     }
+  }
   :hover{
   border-bottom: 3px solid #FFF;
     color: #FFFFFF;

@@ -2,7 +2,7 @@
 
   <div>
 
-    <div>404 not found</div>
+    <div class="content">404 not found</div>
   </div>
 
 </template>
@@ -34,5 +34,11 @@ export default {
 
 <style type="text/scss" lang="less" scoped>
 
+.content {
+  min-height:400px;
+  text-align:center;
+  font-size: 50px;
+
+}
 
 </style>

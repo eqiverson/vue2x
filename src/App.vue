@@ -10,11 +10,9 @@
     
   </div>
 
-
-
-
+  <div class="content">
 <router-view></router-view>
-
+</div>
   <a-layout-footer class="footer">  
   
   Copyright ©版权所有 2020 通服区块链
@@ -50,6 +48,10 @@
   font-size: 16px;
   bottom: 0;
   text-align: center;
+}
+.content {
+  min-height:400px;
+  background-color: #f4f8f7;
 }
 </style>
 

@@ -14,7 +14,7 @@
     <div class="infobox">
       <a-row type="flex" justify="center" align="middle">
         <a-col :span="6" class="infobox-item">
-          <router-link class="data" :to="{ name:'lastblock',params: { seq: seq }}" >{{ seq }}</router-link>
+          <router-link class="data" :to="{ name:'blockdetail',params: { seq: seq }}" >{{ seq }}</router-link>
           <div class="title">当前区块高度</div>
         </a-col>
         <a-col :span="6" class="infobox-item" >
