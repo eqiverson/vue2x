@@ -1,13 +1,12 @@
 <template>
   <div>
-    <Blocktable @changepage="changepage"  :data="data" :pagination="pagination"></Blocktable>
+    <Datatable @changepage="changepage"  :columns="columns" :data="data" :pagination="pagination"></Datatable>
   </div>
 </template>
 
 <script>
-import Blocktable from "@/components/Blocktable.vue"
 import { getLedger } from "@/network/home";
-
+import Datatable from "@/components/common/Datatable.vue";
 
 
 
@@ -17,6 +16,37 @@ export default {
     return {
       count:0,
       data:[],
+      columns :[
+        {
+          title: "区块高度",
+          dataIndex: "seq",
+          key: "seq",
+          align: "center",
+          scopedSlots: { customRender: 'seq' },
+        },
+        {
+          title: '生成时间',
+          dataIndex: 'closeTime',
+          key: 'closeTime',
+        },
+        {
+          title: '区块版本',
+          dataIndex: 'version',
+          key: 'version',
+        },
+        {
+          title: '区块大小',
+          key: 'size',
+          dataIndex: 'size',
+        },
+        {
+          title: '块哈希',
+          key: 'hash',
+          dataIndex: 'hash',
+          scopedSlots: { customRender: 'search' },
+          ellipsis: true,
+        },
+      ],
     };
   },
 
@@ -24,7 +54,7 @@ export default {
     this.gettabledata();
   },
 
-  components: {Blocktable,},
+  components: {Datatable},
 
   computed:{
     pagination(){

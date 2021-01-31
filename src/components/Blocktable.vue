@@ -16,37 +16,7 @@
 
 <script>
 
-const columns = [
-  {
-    title: "区块高度",
-    dataIndex: "seq",
-    key: "seq",
-    align: "center",
-    scopedSlots: { customRender: 'seq' },
-  },
-  {
-    title: '生成时间',
-    dataIndex: 'closeTime',
-    key: 'closeTime',
-  },
-  {
-    title: '区块版本',
-    dataIndex: 'version',
-    key: 'version',
-  },
-  {
-    title: '区块大小',
-    key: 'size',
-    dataIndex: 'size',
-  },
-  {
-    title: '块哈希',
-    key: 'hash',
-    dataIndex: 'hash',
-    scopedSlots: { customRender: 'search' },
-    ellipsis: true,
-  },
-];
+const
 
 
 export default {
@@ -58,7 +28,6 @@ export default {
 
   data() {
     return {
-      columns
     };
 
   },

@@ -2,35 +2,30 @@
 <template>
   <div>
     <div class="container">
-      <a-divider orientation="left"> 交易： {{ $route.params.hash }} </a-divider>
+      <div class="title">查看交易详情：</div>
       <div id="detail">
         <div>
           <a-row  type="flex">
             <a-col  :span="3" :offset="2">交易时间：</a-col>
-            <a-col  :span="10">{{ closeTime }}</a-col>
+            <a-col  :span="10">{{ data.closeTime }}</a-col>
           </a-row>
           <a-row type="flex">
             <a-col  :span="3" :offset="2">区块高度：</a-col>
-            <a-col :flex ="10">{{ seq }}</a-col>
+            <a-col :flex ="10">{{ data.seq }}</a-col>
           </a-row>
           <a-row type="flex">
             <a-col  :span="3" :offset="2">交易类型：</a-col>
-            <a-col :flex ="10">{{ transtype[type] }}</a-col>
+            <a-col :flex ="10">{{ transtype[data.type] }}</a-col>
           </a-row>
           <a-row type="flex">
             <a-col  :span="3" :offset="2">源账户：</a-col>
-            <a-col :flex ="10">{{ sourceAddress }}</a-col>
+            <a-col :flex ="10">{{ data.sourceAddress }}</a-col>
           </a-row>
             <a-row type="flex">
             <a-col  :span="3" :offset="2">签名者：</a-col>
-            <a-col :flex ="10">{{ sourceAddress }}</a-col>
+            <a-col :flex ="10">{{ signers[0] }}</a-col>
           </a-row>
 
-
-          <a-row type="flex">
-            <a-col :flex="2">签名者</a-col>
-            <a-col :flex="3">{{ signers.address }}</a-col>
-          </a-row>
 
         </div>
       </div>
@@ -43,18 +38,30 @@
       <div class="tag">存证</div>
       <div class="detail">
         <div>
-          <div>操作源账户地址</div>
-          {{ }}
-          <div>存证索引key</div>
-          {{}}
-          <div>存证内容</div>
-          {{}}
-          <div>资产代码</div>
-          {{}}
-          <div>源账户</div>
-          {{}}
-          <div>签名者</div>
-          {{}}
+          <a-row  type="flex">
+            <a-col  :span="3" :offset="2"> 操作源地址：</a-col>
+            <a-col  :span="10">{{ payCoin[1] }}</a-col>
+          </a-row>
+          <a-row  type="flex">
+            <a-col  :span="3" :offset="2"> 存证索引key：</a-col>
+            <a-col  :span="10">{{ record[2] }}</a-col>
+          </a-row>
+          <a-row  type="flex">
+            <a-col  :span="3" :offset="2"> 存证内容：</a-col>
+            <a-col  :span="10">{{record[3] }}</a-col>
+          </a-row>
+          <a-row  type="flex">
+            <a-col  :span="3" :offset="2"> 资产代码：</a-col>
+            <a-col  :span="10">{{ record[4] }}</a-col>
+          </a-row>
+          <a-row  type="flex">
+            <a-col  :span="3" :offset="2"> 源账户：</a-col>
+            <a-col  :span="10">{{ issuerAsset[2] }}</a-col>
+          </a-row>
+          <a-row  type="flex">
+            <a-col  :span="3" :offset="2"> 签名者：</a-col>
+            <a-col  :span="10">{{ signers[0] }}</a-col>
+          </a-row>
         </div>
       </div>
     </div>
@@ -71,10 +78,15 @@ export default {
   name: "Transctiondetail",
   data() {
     return {
-      result:Object,
-      hash:String,
-      closeTime:Date,
-      seq:Number,
+      data:[],
+      signers:[],
+      payCoin:[],
+      record:[],
+      issuerAsset:[],
+      // result:Object,
+      // hash:String,
+      // closeTime:Date,
+      // seq:Number,
       transtype:{
         createAccount: "创建账号",
         createContract: "创建合约",
@@ -86,9 +98,10 @@ export default {
         setAuthority: "设置权限",
         complex: "多类型组合",
       },
-      sourceAddress:String,
-      signers:Array,
-      type1:String,
+      // sourceAddress:String,
+      // signers:Array,
+      // type1:String,
+
 
 
 
@@ -109,16 +122,21 @@ export default {
 
   methods: {
     getdata(){
-      getTransaction({hash:this.hash}).then((res) => {
+      getTransaction({hash:this.$route.params.hash}).then((res) => {
         console.log(res);
-        this.result = res;
-
-        this.closeTime = res.result.closeTime;
-        this.seq = res.result.seq;
-        this.type = res.result.type;
-        this.sourceAddress = res.result.sourceAddress;
-        this.signers = res.signers.signers;
+        // this.result = res;
+        //
+        // this.closeTime = res.result.closeTime;
+        // this.seq = res.result.seq;
+        // this.type = res.result.type;
         // this.sourceAddress = res.result.sourceAddress;
+        // this.signers = res.signers.signers;
+        // this.sourceAddress = res.result.sourceAddress;
+        this.data = res;
+        this.signers = res.signers;
+            this.payCoin = res.payCoin;
+            this.record = res.record;
+            this.issuerAsset= res.issuerAsset;
       });
 
 
@@ -129,6 +147,25 @@ export default {
 };
 </script>
 <style lang='less' scoped>
+.container{
+  background-color: #fff;
+  padding: 25px;
+  box-shadow: 0px 0px 10px rgb(206, 206, 206);
+  margin: 25px;
+  line-height: 50px;
+}
+.title {
+  border-left-color: blue;
+  border-left-width: 5px;
+  border-left-style: solid;
+  color: #101010;
+  font-size: 18px;
+  position: relative;
+  padding-left: 15px;
+  line-height: 32px;
+}
+
+
 #detail {
   // text-align: center;
   margin-left: 30px;

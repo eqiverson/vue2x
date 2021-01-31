@@ -330,8 +330,9 @@ export default {
 .home {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  padding-top: 20px;
+  justify-content: space-between;
+  padding:25px;
+
 
   .chart {
     background-color: #fff;

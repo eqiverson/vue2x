@@ -19,18 +19,13 @@ Vue.use(VueRouter)
 
 const routes = [
 
+
+
+
   {
     name:'accountdetail',
-    path:'/aransaction/:account',
+    path:'/application/accounts/:account',
     component:Accountdetail,
-  },
-
-  
-
-  {
-    name:'blockdetail',
-    path:'/blocks/:block',
-    component:Blockdetail,
   },
 
   
@@ -41,7 +36,12 @@ const routes = [
     component:Transctiondetail,
   },
 
-  
+  {
+    name:'blockdetail',
+    path:'/blocks/:block',
+    component:Blockdetail,
+  },
+
 
 
   {
@@ -74,19 +74,21 @@ const routes = [
     //     path:'',
     //     component: Accounts
     //   }
-
+    //
     // ],
   },
 
 
-  {
-    path: '/404',
-    component:Error404
-},
-  {
-    path: '*',
-    redirect:'/404',
-},
+
+
+//   {
+//     path: '/404',
+//     component:Error404
+// },
+//   {
+//     path: '*',
+//     redirect:'/404',
+// },
 
 ]
 

@@ -6,7 +6,7 @@
         :columns="columns"
         :data-source="data"
         :pagination="pagination"
-        :className="bbb"
+
         @change="handlechange">
       <!-- <a slot="sourceAddress" slot-scope="text">{{ text }}</a>      -->
       <template slot="sourceAddress" slot-scope="text"> 
@@ -41,7 +41,7 @@
 
 
 export default {
-  name: "Transtable",
+  name: "Datatable",
 
   components: {},
 
@@ -79,6 +79,9 @@ export default {
     },
 
   },
+
+
+
 }
 
 
