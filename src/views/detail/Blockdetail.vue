@@ -163,8 +163,8 @@ export default {
 
   watch: {
     $route(to, from) {
-      console.log(1);
-      this.getdata();
+    this.getdata1();
+    this.getdata2();
     }
   },
 

@@ -113,7 +113,9 @@ export default {
   },
 
   watch:{
-    $route:'getdata'
+    $route(to, from) {
+    this.getdata();
+    }
   },
 
   components: {},

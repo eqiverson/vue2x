@@ -2,7 +2,7 @@
 
   <div>
 
-    <div class="content">404 not found</div>
+    <div class="content">没有相关数据，请输入正确信息</div>
   </div>
 
 </template>

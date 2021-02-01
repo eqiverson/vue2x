@@ -18,11 +18,11 @@
           <div class="title">当前区块高度</div>
         </a-col>
         <a-col :span="6" class="infobox-item" >
-          <div class="data">{{ accountCount }}</div>
+          <router-link class="data" :to="{ name:'accounts'}" >{{ accountCount }}</router-link>
           <div class="title">总账号数</div>
         </a-col>
         <a-col :span="6" class="infobox-item" >
-          <div class="data">{{ txCount }}</div>
+          <router-link class="data" :to="{ name:'blocks'}" >{{ txCount }}</router-link>
           <div class="title">总交易数</div>
         </a-col>
         <!-- <a-col :span="4" class="infobox-item">
@@ -30,7 +30,7 @@
           <div class="title">接入应用数</div>
         </a-col> -->
         <a-col :span="6" class="infobox-item" >
-          <div class="data">{{ nodeCount }}</div>
+          <router-link class="data" :to="{ name:'nodes'}" >{{ nodeCount }}</router-link>
           <div class="title">实时节点数</div>
         </a-col>
       </a-row>
