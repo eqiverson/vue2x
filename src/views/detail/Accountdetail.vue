@@ -172,13 +172,13 @@ export default {
         // this.sourceAddress = res.result.sourceAddress;
         // this.signers = res.signers.signers;
         // this.sourceAddress = res.result.sourceAddress;
-        this.data1 = res;
+        this.data1 = res.result;
       });
     },
     getdata2() {
       getTransaction({sourceAddress: this.$route.params.account}).then((res) => {
         console.log(res);
-        this.data2 = res;
+        this.data2 = res.result;
       });
     },
 

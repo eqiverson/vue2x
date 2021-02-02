@@ -121,7 +121,7 @@ export default {
 
       tablecount: 0,
 
-      items: [1, 2, 3, 4, 5],
+      items: [],
       nextNum1: 6,
       nextNum2: 7,
 
@@ -218,8 +218,10 @@ export default {
         this.applicationCount = res.applicationCount;
         this.nodeCount = res.nodeCount;
         this.closeTime = res.result[0].closeTime;
-
-        console.log(this.seq);
+        for(let i=0 ;i<5;i++){
+        this.items.splice(0,0,res.result[i].seq);
+        }
+        console.log(res);
       });
     },
 
@@ -277,6 +279,7 @@ export default {
     },
 
     transition1() {
+      
       setInterval(() => {
         this.items.splice(this.items.length, 0, this.nextNum1, this.nextNum2);
         this.items.splice(0, 2);
@@ -313,15 +316,6 @@ export default {
   },
 
   computed: {
-    // pagination(){
-    // {
-    //   defaultCurrent: 1,
-    //   total: this.tablecount,
-    //   showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`,
-    //   showSizeChanger: true,
-    //   showQuickJumper: true,
-    // }
-    // }
   },
 };
 </script>

@@ -134,11 +134,11 @@ export default {
         // this.sourceAddress = res.result.sourceAddress;
         // this.signers = res.signers.signers;
         // this.sourceAddress = res.result.sourceAddress;
-        this.data = res;
-        this.signers = res.signers;
-            this.payCoin = res.payCoin;
-            this.record = res.record;
-            this.issuerAsset= res.issuerAsset;
+        this.data = res.result;
+        this.signers = res.result.signers;
+            this.payCoin = res.result.payCoin;
+            this.record = res.result.record;
+            this.issuerAsset= res.result.issuerAsset;
       });
 
 

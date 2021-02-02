@@ -4,7 +4,7 @@
       type="search"
       v-model="Searchresult"
       placeholder="请输入区块高度值/区块哈希值/交易哈希/账号地址"
-      @keydown="SearchAction"
+      @keyup.enter="SearchAction"
     />
   </div>
 </template>
@@ -21,62 +21,83 @@ export default {
     };
   },
   methods: {
+
+       searchseq( i ) {
+        return getLedger({ seq: i }).then((res) =>{return res});
+      },
     
      SearchAction: _.throttle( async function (e) {
-      const inputValue = e.target.value;
+      let inputValue = e.target.value;
+      
+      
+      let arr1 = await getLedger({ seq: inputValue }).then((res) => {return res.result});
+      let arr2 = await getLedger({ hash: inputValue });
+        let arr3 = await getTransaction({ hash: inputValue });
+         let arr4 = await getAccount({ address: inputValue });
+
+          // await arr1;
+          // await arr2;
+          // await arr3;
+          // await arr4;
+
+          console.log(arr1);
+          console.log(arr2);
+          console.log(arr3);
+          console.log(arr4);
+          console.log(typeof(parseInt(inputValue)));
+          console.log(inputValue>0);
+          console.log(inputValue<9223372036854775807);
+          console.log(arr1.length != 0);
+
       //   this.Searchresult = this.multidata.filter((item) =>{
       //   if (item.course_name.includes(inputValue)){
       //     return item;
       //   }
 
       // })
-
-      switch (typeof inputValue) {
+            switch (typeof(parseInt(inputValue))) {
         case number:
-          if(await getLedger({ seq: s }).length != 0)
+        let   n =  parseInt(inputValue);
+      if(n>0 && n<9223372036854775807 && arr1.length != 0)
           this.router.push({ name: "blockdetail", params: { inputValue } });
           else
           this.router.push({ path: "/404" });
           break;
 
-        case string:
 
-          const arr1 = getLedger({ hash: inputValue });
-          const arr2 = getTransaction({ hash: inputValue });
-          const arr3 = getAccount({ address: inputValue });
 
-          await arr1;
-          await arr2;
-          await arr3;
+        case NaN:
 
-          if(await getLedger({ hash: inputValue }.length !=0)
+         switch (inputValue.length){
 
-              this.router.push({ name: "blockdetail", params: { inputValue } });
-          else if()
-           this.router.push({ path: "/404" });
-              getTransaction({ hash: inputValue })
-                .then((res) => {
-                  this.router.push({
-                    name: "transctiondetail",
-                    params: { inputValue },
-                  });
-                })
-                .catch((err) => {
-                  getAccount({ address: inputValue })
-                    .then((res) => {
-                      this.router.push({
-                        name: "accountdetail",
-                        params: { inputValue },
-                      });
-                    })
-                    .catch((err) => {
-                      this.router.push({ path: "/404" });
-                    });
-                });
-            });
+          //查询账号
+         case 32:
+           if (arr4.result.length!=0)
+           this.router.push({ name: "accountdetail" , params: { inputValue }, });
+          else
+          this.router.push({ path: "/404" });
+          break;
+
+          //先查询是否区块哈希，再查询交易哈希
+          case 64:
+
+          if (arr2.result.length==0&&arr3.result.length==0)
+          this.router.push({ path: "/404" });
+          else if (arr2.result.length!=0)
+          this.router.push({ name: "blockdetail", params: { inputValue } });
+          else
+          this.router.push({ name: "transctiondetail", params: { inputValue }});
 
           break;
-      }
+
+          default:
+      this.router.push({ path: "/404" });
+      break;
+
+         }
+         break;
+   }
+           
     }, 1000),
 
     async blockseq(s) {
