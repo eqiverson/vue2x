@@ -149,7 +149,7 @@ export default {
           align: "center",
           width: "10%",
           customRender(status) {
-            return status == "success" ? "成功" : "不成功";
+            return status === "success" ? "成功" : "不成功";
           },
         },
       ],
@@ -192,28 +192,38 @@ export default {
   methods: {
     async getdata() {
      let  n = this.$route.params.block;
-      switch (typeof(n)) {
-        case 'number':
-      this.data1 = await getLedger({ seq: n }).then((res) => {return res.result});
+      let reg = /^[0-9]*[1-9][0-9]*$/ ;
 
-      this.data2 = await getTransaction({ seq: n }).then((res) => {return res.result});
-        break;
+      if(reg.test(n)) {
 
-        case 'string':
-      this.data1 = await getLedger({ hash: n }).then((res) => {return res.result});
-       this.seq = this.data1[0].seq;
-       this.closeTime = this.data1[0].closeTime;
-       this.version = this.data1[0].version;
-       this.size = this.data1[0].size;
-       this.latestTxCount = this.data1[0].latestTxCount;
-       this.hash = this.data1[0].hash;
-       this.previousHash = this.data1[0].previousHash;
-       this.accountTreeHash = this.data1[0].accountTreeHash;
-       this.consensusValueHash = this.data1[0].consensusValueHash;
+        this.data1 = await getLedger({seq: n}).then((res) => {
+          return res.result
+        });
 
-      this.data2 = await getTransaction({ hash: n }).then((res) => {return res.result});
-        break;
+        this.data2 = await getTransaction({seq: n}).then((res) => {
+          return res.result
+        });
       }
+
+       else {
+        this.data1 = await getLedger({hash: n}).then((res) => {
+          return res.result
+        });
+        this.seq = this.data1[0].seq;
+        this.closeTime = this.data1[0].closeTime;
+        this.version = this.data1[0].version;
+        this.size = this.data1[0].size;
+        this.latestTxCount = this.data1[0].latestTxCount;
+        this.hash = this.data1[0].hash;
+        this.previousHash = this.data1[0].previousHash;
+        this.accountTreeHash = this.data1[0].accountTreeHash;
+        this.consensusValueHash = this.data1[0].consensusValueHash;
+
+        this.data2 = await getTransaction({hash: n}).then((res) => {
+          return res.result
+        });
+      }
+
     },
 
     changepage(n) {

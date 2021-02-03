@@ -40,19 +40,19 @@ export default {
          console.log(typeof(n));
           console.log(n>0);
           console.log(n<9223372036854775807);
-          console.log(arr1.length != 0);
+          console.log(arr1.length !== 0);
 
-      if(n>0 && n<9223372036854775807 && arr1.length != 0)
-          that.$router.push({ name: "blockdetail", params: { block:n } });
+      if(n>0 && n<9223372036854775807 && arr1.length !== 0)
+          that.$router.push({ name: "blockdetail", params: { block:inputValue } });
           else
           that.$router.push({ path: "/404" });
       }
-      
 
-        else
+
+      else
         {
 
-          let arr4 = await getAccount({ address: inputValue }).then((res) => {return res});
+        let arr4 = await getAccount({ address: inputValue }).then((res) => {return res.result});
         let arr2 = await getLedger({ hash: inputValue }).then((res) => {return res==null?null:res.result});
         let arr3 = await getTransaction({ hash: inputValue }).then((res) => {return res.result.length==0?null:res.result});
 
@@ -65,7 +65,7 @@ export default {
 
           //查询账号
          case 36:
-           if (arr4.length!=0)
+           if (arr4.length !== 0)
            that.$router.push({ name: "accountdetail" , params: { account:inputValue } });
           else
           that.$router.push({ path: "/404" });
@@ -74,9 +74,9 @@ export default {
           //先查询是否区块哈希，再查询交易哈希
           case 64:
 
-          if (arr2.length==0&&arr3.length==0)
+          if (arr2.length===0&&arr3.length===0)
           that.$router.push({ path: "/404" });
-          else if (arr2.length!=0)
+          else if (arr2.length!==0)
           that.$router.push({ name: "blockdetail", params: { block:inputValue } });
           else
           that.$router.push({ name: "transctiondetail", params: { hash:inputValue }});
@@ -84,8 +84,8 @@ export default {
           break;
 
           default:
-      that.$router.push({ path: "/404" });
-      break;
+          that.$router.push({ path: "/404" });
+          break;
          }
 
          }
