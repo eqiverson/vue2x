@@ -22,7 +22,7 @@
           <div class="title">总账号数</div>
         </a-col>
         <a-col :span="6" class="infobox-item" >
-          <router-link class="data" :to="{ name:'Blocks'}" >{{ txCount }}</router-link>
+          <router-link class="data" :to="{ name:'Transaction'}" >{{ txCount }}</router-link>
           <div class="title">总交易数</div>
         </a-col>
         <!-- <a-col :span="4" class="infobox-item">

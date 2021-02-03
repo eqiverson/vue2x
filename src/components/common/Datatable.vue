@@ -10,8 +10,17 @@
         @change="handlechange">
       <!-- <a slot="sourceAddress" slot-scope="text">{{ text }}</a>      -->
       <template slot="sourceAddress" slot-scope="text"> 
+        <router-link :to="{ name:'accountdetail' , params:{ account:text }}">{{ text }}</router-link>
+      </template>
+
+      <template slot="transhash" slot-scope="text"> 
         <router-link :to="{ name:'transctiondetail' , params:{ hash:text }}">{{ text }}</router-link>
       </template>
+      
+      <template slot="block" slot-scope="text"> 
+        <router-link :to="{ name:'blockdetail' , params:{  block:text }}">{{ text }}</router-link>
+      </template>
+
     </a-table>
   </div>
   

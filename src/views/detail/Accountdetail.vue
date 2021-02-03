@@ -203,6 +203,7 @@ export default {
   padding: 25px;
   box-shadow: 0px 0px 10px rgb(206, 206, 206);
   margin: 25px;
+  line-height: 50px;
 }
 .title {
   border-left-color: blue;

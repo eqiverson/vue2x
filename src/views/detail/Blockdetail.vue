@@ -6,39 +6,39 @@
       <div id="detail">
         <a-row type="flex">
           <a-col :span="3" :offset="2">区块高度</a-col>
-          <a-col :span="10">{{ data1.seq }}</a-col>
+          <a-col :span="10">{{ seq }}</a-col>
         </a-row>
         <a-row type="flex">
           <a-col :span="3" :offset="2">区块生成时间</a-col>
-          <a-col :span="10">{{ data1.closeTime }}</a-col>
+          <a-col :span="10">{{ closeTime }}</a-col>
         </a-row>
         <a-row type="flex">
           <a-col :span="3" :offset="2">区块版本</a-col>
-          <a-col :span="10">{{ data1.version }}</a-col>
+          <a-col :span="10">{{ version }}</a-col>
         </a-row>
         <a-row type="flex">
           <a-col :span="3" :offset="2">区块大小</a-col>
-          <a-col :span="10">{{ data1.size }}</a-col>
+          <a-col :span="10">{{ size }}</a-col>
         </a-row>
         <a-row type="flex">
           <a-col :span="3" :offset="2">交易数量</a-col>
-          <a-col :span="10">{{ data1.latestTxCount }}</a-col>
+          <a-col :span="10">{{ latestTxCount }}</a-col>
         </a-row>
         <a-row type="flex">
           <a-col :span="3" :offset="2">区块哈希</a-col>
-          <a-col :span="10">{{ data1.hash }}</a-col>
+          <a-col :span="10">{{ hash }}</a-col>
         </a-row>
         <a-row type="flex">
           <a-col :span="3" :offset="2">上一块哈希</a-col>
-          <a-col :span="10">{{ data1.previousHash }}</a-col>
+          <a-col :span="10">{{ previousHash }}</a-col>
         </a-row>
         <a-row type="flex">
           <a-col :span="3" :offset="2">账户树哈希</a-col>
-          <a-col :span="10">{{ data1.accountTreeHash }}</a-col>
+          <a-col :span="10">{{ accountTreeHash }}</a-col>
         </a-row>
         <a-row type="flex">
           <a-col :span="3" :offset="2">共识信息哈希</a-col>
-          <a-col :span="10">{{ data1.consensusValueHas }}</a-col>
+          <a-col :span="10">{{ consensusValueHash }}</a-col>
         </a-row>
       </div>
     </div>
@@ -66,6 +66,15 @@ export default {
   data() {
     return {
       data1: [],
+      seq: Number,
+      closeTime:Date,
+      version:Number,
+      size:Number,
+      latestTxCount:Number,
+      hash:String,
+      previousHash:String,
+      accountTreeHash:String,
+      consensusValueHash:String,
       data2: [],
       count: 0,
       columns: [
@@ -154,14 +163,14 @@ export default {
   },
 
   created() {
-    this.getdata1();
-    this.getdata2();
+    this.getdata();
+
   },
 
   watch: {
     $route(to, from) {
-      this.getdata1();
-      this.getdata2();
+      this.getdata();
+
     },
   },
 
@@ -181,30 +190,32 @@ export default {
   },
 
   methods: {
-    getdata1() {
-      switch (this.$route.params.block) {
-        case Number:
-          getLedger({ seq: this.$route.params.block }).then((res) => {
-            console.log(res);
-            this.data = res.result;
-          });
-          break;
+    async getdata() {
+     let  n = this.$route.params.block;
+      switch (typeof(n)) {
+        case 'number':
+      this.data1 = await getLedger({ seq: n }).then((res) => {return res.result});
 
-        case String:
-          getLedger({ hash: this.$route.params.block }).then((res) => {
-            console.log(res);
-            this.data = res.result;
-          });
+      this.data2 = await getTransaction({ seq: n }).then((res) => {return res.result});
+        break;
 
-          break;
+        case 'string':
+      this.data1 = await getLedger({ hash: n }).then((res) => {return res.result});
+       this.seq = this.data1[0].seq;
+       this.closeTime = this.data1[0].closeTime;
+       this.version = this.data1[0].version;
+       this.size = this.data1[0].size;
+       this.latestTxCount = this.data1[0].latestTxCount;
+       this.hash = this.data1[0].hash;
+       this.previousHash = this.data1[0].previousHash;
+       this.accountTreeHash = this.data1[0].accountTreeHash;
+       this.consensusValueHash = this.data1[0].consensusValueHash;
+
+      this.data2 = await getTransaction({ hash: n }).then((res) => {return res.result});
+        break;
       }
     },
-    getdata2() {
-      getTransaction({ sourceAddress: this.hash }).then((res) => {
-        console.log(res);
-        this.data2 = res.result;
-      });
-    },
+
     changepage(n) {
       console.log(n);
       getTransaction({ page: n }).then((res) => {

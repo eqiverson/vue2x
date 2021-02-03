@@ -38,7 +38,7 @@ export default {
           key: "address",
           ellipsis: true,
           align: "center",
-          scopedSlots: { customRender: 'address' },
+          scopedSlots: { customRender: 'sourceAddress' },
         },
         // {
         //   title: "交易时间",

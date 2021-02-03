@@ -188,7 +188,7 @@ export default {
           key: "hash",
           align: "center",
           ellipsis: true,
-          scopedSlots: { customRender: "sourceAddress" },
+          scopedSlots: { customRender: "transhash" },
         },
         {
           title: "状态",
@@ -206,11 +206,21 @@ export default {
 
   created() {
     this.infodata();
-    this.transition1();
   },
+
+watch:{
+  seq:{
+      handler(nseq,oseq) {
+        let s = nseq - 1;
+        this.items.splice(this.items.length,0,s,nseq);
+        this.items.splice(0, 2);
+      }
+},
+},
 
   methods: {
     infodata() {
+      setInterval(() => {
       getLedger({}).then((res) => {
         this.seq = res.result[0].seq;
         this.accountCount = res.result[0].accountCount;
@@ -218,11 +228,12 @@ export default {
         this.applicationCount = res.applicationCount;
         this.nodeCount = res.nodeCount;
         this.closeTime = res.result[0].closeTime;
-        for(let i=0 ;i<5;i++){
-        this.items.splice(0,0,res.result[i].seq);
-        }
+        // for(let i=0 ;i<5;i++){
+        // this.items.splice(0,0,res.result[i].seq);
+        // }
         console.log(res);
       });
+            }, 1000);
     },
 
     setchart1() {
@@ -278,37 +289,14 @@ export default {
       });
     },
 
-    transition1() {
+
       
-      setInterval(() => {
-        this.items.splice(this.items.length, 0, this.nextNum1, this.nextNum2);
-        this.items.splice(0, 2);
-        this.nextNum1 = this.nextNum1 + 2;
-        this.nextNum2 = this.nextNum2 + 2;
-      }, 1000);
-    },
 
-    //   loopdata(n){
 
-    //     let that = this;
-    // //
-    //     setInterval(that.infodata(), n);
-    //     }
-    //
-    //     setTimeout(() => {
-    //       this.infodata();
-    //       },n);
-    //     });
-    //   },
-    //
-    //   async loopit (n) {
-    //     const n = 5000;
-    //     this.loopdata(n) = await
-    //   }
+
   },
 
   mounted() {
-    // setInterval(() => { this.infodata() },10000);
 
     this.setchart2();
     this.setchart1();
@@ -317,7 +305,8 @@ export default {
 
   computed: {
   },
-};
+}
+
 </script>
 
 <style lang='less' scoped>

@@ -6,6 +6,7 @@
       placeholder="请输入区块高度值/区块哈希值/交易哈希/账号地址"
       @keyup.enter="SearchAction"
     />
+    <div>{{Searchresult}}</div>
   </div>
 </template>
 
@@ -22,93 +23,77 @@ export default {
   },
   methods: {
 
-       searchseq( i ) {
-        return getLedger({ seq: i }).then((res) =>{return res});
-      },
     
      SearchAction: _.throttle( async function (e) {
       let inputValue = e.target.value;
-      
-      
-      let arr1 = await getLedger({ seq: inputValue }).then((res) => {return res.result});
-      let arr2 = await getLedger({ hash: inputValue });
-        let arr3 = await getTransaction({ hash: inputValue });
-         let arr4 = await getAccount({ address: inputValue });
+      let reg = /^[0-9]*[1-9][0-9]*$/ ;
 
-          // await arr1;
-          // await arr2;
-          // await arr3;
-          // await arr4;
+       let that = this;
 
+      if ( reg.test(inputValue) )
+      {
+        let   n =  parseInt(inputValue);
+
+        let arr1 = await getLedger({ seq: inputValue }).then((res) => {return res==null?null:res.result});
           console.log(arr1);
+         console.log(n);
+         console.log(typeof(n));
+          console.log(n>0);
+          console.log(n<9223372036854775807);
+          console.log(arr1.length != 0);
+
+      if(n>0 && n<9223372036854775807 && arr1.length != 0)
+          that.$router.push({ name: "blockdetail", params: { block:n } });
+          else
+          that.$router.push({ path: "/404" });
+      }
+      
+
+        else
+        {
+
+          let arr4 = await getAccount({ address: inputValue }).then((res) => {return res});
+        let arr2 = await getLedger({ hash: inputValue }).then((res) => {return res==null?null:res.result});
+        let arr3 = await getTransaction({ hash: inputValue }).then((res) => {return res.result.length==0?null:res.result});
+
+      console.log(inputValue.length);
           console.log(arr2);
           console.log(arr3);
           console.log(arr4);
-          console.log(typeof(parseInt(inputValue)));
-          console.log(inputValue>0);
-          console.log(inputValue<9223372036854775807);
-          console.log(arr1.length != 0);
-
-      //   this.Searchresult = this.multidata.filter((item) =>{
-      //   if (item.course_name.includes(inputValue)){
-      //     return item;
-      //   }
-
-      // })
-            switch (typeof(parseInt(inputValue))) {
-        case number:
-        let   n =  parseInt(inputValue);
-      if(n>0 && n<9223372036854775807 && arr1.length != 0)
-          this.router.push({ name: "blockdetail", params: { inputValue } });
-          else
-          this.router.push({ path: "/404" });
-          break;
-
-
-
-        case NaN:
 
          switch (inputValue.length){
 
           //查询账号
-         case 32:
-           if (arr4.result.length!=0)
-           this.router.push({ name: "accountdetail" , params: { inputValue }, });
+         case 36:
+           if (arr4.length!=0)
+           that.$router.push({ name: "accountdetail" , params: { account:inputValue } });
           else
-          this.router.push({ path: "/404" });
+          that.$router.push({ path: "/404" });
           break;
 
           //先查询是否区块哈希，再查询交易哈希
           case 64:
 
-          if (arr2.result.length==0&&arr3.result.length==0)
-          this.router.push({ path: "/404" });
-          else if (arr2.result.length!=0)
-          this.router.push({ name: "blockdetail", params: { inputValue } });
+          if (arr2.length==0&&arr3.length==0)
+          that.$router.push({ path: "/404" });
+          else if (arr2.length!=0)
+          that.$router.push({ name: "blockdetail", params: { block:inputValue } });
           else
-          this.router.push({ name: "transctiondetail", params: { inputValue }});
+          that.$router.push({ name: "transctiondetail", params: { hash:inputValue }});
 
           break;
 
           default:
-      this.router.push({ path: "/404" });
+      that.$router.push({ path: "/404" });
       break;
+         }
 
          }
-         break;
-   }
+   
            
     }, 1000),
 
-    async blockseq(s) {
-      getLedger({ seq: s })
-        .then((res) => {
-          this.router.push({ name: "blockdetail", params: { inputValue } });
-        })
-        .catch((err) => {
-          this.router.push({ path: "/404" });
-        });
-    },
+
   },
 };
 </script>

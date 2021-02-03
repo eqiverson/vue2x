@@ -7,23 +7,23 @@
         <div>
           <a-row  type="flex">
             <a-col  :span="3" :offset="2">交易时间：</a-col>
-            <a-col  :span="10">{{ data.closeTime }}</a-col>
+            <a-col  :span="10">{{ closeTime }}</a-col>
           </a-row>
           <a-row type="flex">
             <a-col  :span="3" :offset="2">区块高度：</a-col>
-            <a-col :flex ="10">{{ data.seq }}</a-col>
+            <a-col :flex ="10">{{ seq }}</a-col>
           </a-row>
           <a-row type="flex">
             <a-col  :span="3" :offset="2">交易类型：</a-col>
-            <a-col :flex ="10">{{ transtype[data.type] }}</a-col>
+            <a-col :flex ="10">{{ transtype[type] }}</a-col>
           </a-row>
           <a-row type="flex">
             <a-col  :span="3" :offset="2">源账户：</a-col>
-            <a-col :flex ="10">{{ data.sourceAddress }}</a-col>
+            <a-col :flex ="10">{{ sourceAddress }}</a-col>
           </a-row>
             <a-row type="flex">
             <a-col  :span="3" :offset="2">签名者：</a-col>
-            <a-col :flex ="10">{{ signers[0] }}</a-col>
+            <a-col :flex ="10">{{ signers }}</a-col>
           </a-row>
 
 
@@ -40,31 +40,31 @@
         <div>
           <a-row  type="flex">
             <a-col  :span="3" :offset="2"> 操作源地址：</a-col>
-            <a-col  :span="10">{{ payCoin[1] }}</a-col>
+            <a-col  :span="10">{{ payCoin }}</a-col>
           </a-row>
           <a-row  type="flex">
             <a-col  :span="3" :offset="2"> 存证索引key：</a-col>
-            <a-col  :span="10">{{ record[2] }}</a-col>
+            <a-col  :span="10">{{ record }}</a-col>
           </a-row>
           <a-row  type="flex">
             <a-col  :span="3" :offset="2"> 存证内容：</a-col>
-            <a-col  :span="10">{{record[3] }}</a-col>
+            <a-col  :span="10">{{record }}</a-col>
           </a-row>
           <a-row  type="flex">
             <a-col  :span="3" :offset="2"> 资产代码：</a-col>
-            <a-col  :span="10">{{ record[4] }}</a-col>
+            <a-col  :span="10">{{ record }}</a-col>
           </a-row>
           <a-row  type="flex">
             <a-col  :span="3" :offset="2"> 源账户：</a-col>
-            <a-col  :span="10">{{ issuerAsset[2] }}</a-col>
+            <a-col  :span="10">{{ issuerAsset }}</a-col>
           </a-row>
           <a-row  type="flex">
             <a-col  :span="3" :offset="2"> 签名者：</a-col>
-            <a-col  :span="10">{{ signers[0] }}</a-col>
+            <a-col  :span="10">{{ signers }}</a-col>
           </a-row>
         </div>
-      </div>
-    </div>
+      </div> 
+</div>
 
 
   </div>
@@ -83,10 +83,11 @@ export default {
       payCoin:[],
       record:[],
       issuerAsset:[],
-      // result:Object,
-      // hash:String,
-      // closeTime:Date,
-      // seq:Number,
+      result:Object,
+      hash:String,
+      closeTime:Date,
+      seq:Number,
+      type:String,
       transtype:{
         createAccount: "创建账号",
         createContract: "创建合约",
@@ -98,9 +99,9 @@ export default {
         setAuthority: "设置权限",
         complex: "多类型组合",
       },
-      // sourceAddress:String,
-      // signers:Array,
-      // type1:String,
+      sourceAddress:String,
+      signers:Array,
+      type1:String,
 
 
 
@@ -124,21 +125,19 @@ export default {
 
   methods: {
     getdata(){
-      getTransaction({hash:this.$route.params.hash}).then((res) => {
+      getTransaction({hash:this.$route.params.hash,isSigners:true,isOperation:true}).then((res) => {
         console.log(res);
-        // this.result = res;
-        //
-        // this.closeTime = res.result.closeTime;
-        // this.seq = res.result.seq;
-        // this.type = res.result.type;
-        // this.sourceAddress = res.result.sourceAddress;
-        // this.signers = res.signers.signers;
-        // this.sourceAddress = res.result.sourceAddress;
-        this.data = res.result;
-        this.signers = res.result.signers;
-            this.payCoin = res.result.payCoin;
-            this.record = res.result.record;
-            this.issuerAsset= res.result.issuerAsset;
+        this.data = res;
+        
+        this.closeTime = res.result[0].closeTime;
+        this.seq = res.result[0].seq;
+        this.type = res.result[0].type;
+        this.sourceAddress = res.result[0].sourceAddress;
+        this.signers = res.result[0].signers.length==0? null : res.result[0].signers;
+
+            this.payCoin = res.result[0].sourceAddress;
+            this.record = null;
+            this.issuerAsset= null;
       });
 
 

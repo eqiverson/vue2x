@@ -79,7 +79,7 @@ export default {
           key: "hash",
           align: "center",
           ellipsis: true,
-          scopedSlots: { customRender: "sourceAddress" },
+          scopedSlots: { customRender: "transhash" },
         },
         {
           title: "状态",

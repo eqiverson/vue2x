@@ -22,7 +22,7 @@ export default {
           dataIndex: "seq",
           key: "seq",
           align: "center",
-          scopedSlots: { customRender: 'seq' },
+          scopedSlots: { customRender: 'block' },
         },
         {
           title: '生成时间',
@@ -43,7 +43,7 @@ export default {
           title: '块哈希',
           key: 'hash',
           dataIndex: 'hash',
-          scopedSlots: { customRender: 'search' },
+          scopedSlots: { customRender: 'block' },
           ellipsis: true,
         },
       ],

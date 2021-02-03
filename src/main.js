@@ -38,7 +38,7 @@ new Vue({
 console.log(111)
 
 axios({
-  url:'http://192.168.13.120:7072/v1/getLedger',
+  url:'http://172.16.35.167:7072/v1/getLedger',
   contentType:'application/json',
   method:'post',
   data:{},
@@ -47,10 +47,10 @@ axios({
 })
 
 axios({
-  url:'http://192.168.13.120:7072/v1/getTransaction',
+  url:'http://172.16.35.167:7072/v1/getAccount',
   contentType:'application/json',
   method:'post',
-  data:{pageSize:6},
+  data:{  address: 'ccs3HkoYgAL8BN2voHP1LpAy1dy11136xq87i35'  },
 }).then(res => {
   console.log(res);
 })
