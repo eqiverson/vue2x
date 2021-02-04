@@ -196,11 +196,21 @@ export default {
 
       if(reg.test(n)) {
 
-        this.data1 = await getLedger({seq: n}).then((res) => {
+        this.data1 = await getLedger({seq: parseInt(n)}).then((res) => {
           return res.result
         });
 
-        this.data2 = await getTransaction({seq: n}).then((res) => {
+        this.seq = this.data1[0].seq;
+        this.closeTime = this.data1[0].closeTime;
+        this.version = this.data1[0].version;
+        this.size = this.data1[0].size;
+        this.latestTxCount = this.data1[0].latestTxCount;
+        this.hash = this.data1[0].hash;
+        this.previousHash = this.data1[0].previousHash;
+        this.accountTreeHash = this.data1[0].accountTreeHash;
+        this.consensusValueHash = this.data1[0].consensusValueHash;
+
+        this.data2 = await getTransaction({seq:  parseInt(n)}).then((res) => {
           return res.result
         });
       }

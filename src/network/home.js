@@ -9,8 +9,8 @@ import {request} from "./request";
 //   })
 // }
 
-export function getLedger(data) {
-  return request({
+export  function  getLedger(data) {
+  return  request({
     data,
     url: '/v1/getLedger',
   })

@@ -220,20 +220,18 @@ watch:{
 
   methods: {
     infodata() {
-      setInterval(() => {
-      getLedger({}).then((res) => {
-        this.seq = res.result[0].seq;
+
+
+        getLedger({}).then((res) => {
+
         this.accountCount = res.result[0].accountCount;
         this.txCount = res.result[0].txCount;
         this.applicationCount = res.applicationCount;
         this.nodeCount = res.nodeCount;
         this.closeTime = res.result[0].closeTime;
-        // for(let i=0 ;i<5;i++){
-        // this.items.splice(0,0,res.result[i].seq);
-        // }
-        console.log(res);
-      });
-            }, 1000);
+        for(let i=0 ;i<5;i++){this.items.splice(0,0,res.result[i].seq)};
+
+    });
     },
 
     setchart1() {
@@ -290,6 +288,20 @@ watch:{
     },
 
 
+    getransdata(){
+      
+      setInterval( function() {
+
+      getLedger({}).then((res) => {
+        this.seq = res.result[0].seq;
+        console.log(res);
+      });
+      }
+      
+      ,   5000)
+    }
+
+
       
 
 
@@ -297,16 +309,15 @@ watch:{
   },
 
   mounted() {
-
     this.setchart2();
     this.setchart1();
     this.gettabledata();
+    // this.getransdata();
   },
 
   computed: {
-  },
 }
-
+}
 </script>
 
 <style lang='less' scoped>
@@ -314,8 +325,7 @@ watch:{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding:25px;
-
+  padding: 25px;
 
   .chart {
     background-color: #fff;
@@ -339,7 +349,7 @@ watch:{
   background-color: #fff;
   box-shadow: 0px 0px 10px rgb(206, 206, 206);
   margin: 25px;
-  padding:25px;
+  padding: 25px;
 
   .list-item {
     display: inline-block;
@@ -351,7 +361,7 @@ watch:{
     text-align: center;
     align-items: center;
     line-height: 61px;
-    margin-top:30px;
+    margin-top: 30px;
   }
   .list-enter-active,
   .list-leave-active {
@@ -362,7 +372,7 @@ watch:{
     opacity: 0;
     transform: translateX(20px);
   }
-   .list-leave-to
+  .list-leave-to
 /* .list-leave-active for below version 2.1.8 */ {
     opacity: 0;
     transform: translateY(20px);
